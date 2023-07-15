@@ -18,7 +18,7 @@ subPolynomials :: (Int -> Int -> Int) -> (Polynomial -> Polynomial -> Polynomial
 subPolynomials fn (Polynomial p) (Polynomial p2) =
   Polynomial $ zipWith fn p p2
 
--- mulpolynomials only works on polynomials consisting of two elements
+
 mulPolynomials :: (Int -> Int -> Int) -> (Polynomial -> Polynomial -> Polynomial)
 mulPolynomials fn (Polynomial []) (Polynomial p2) = Polynomial []
 mulPolynomials fn (Polynomial p1) (Polynomial p2)  =
