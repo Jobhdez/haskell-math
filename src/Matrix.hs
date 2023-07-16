@@ -1,0 +1,50 @@
+module Matrix where
+
+import ArithTypeClass
+import Data.List (transpose)
+
+instance ArithMathObject Matrix where
+  add = computeMatrices (+)
+  sub = computeMatrices (-)
+  mul = mulMatrices (*)
+
+
+data Matrix = Matrix [[Int]] deriving (Show, Eq)
+
+computeMatrices :: (Int -> Int -> Int) -> (Matrix -> Matrix -> Matrix)
+computeMatrices fn (Matrix m1) (Matrix m2) =
+  Matrix $ compute m1 m2
+  where
+    compute = zipWith (zipWith fn)
+
+
+mulMatrices :: (Int -> Int -> Int) -> (Matrix -> Matrix -> Matrix)
+mulMatrices fn (Matrix m1) (Matrix m2) =
+ let transposedMat = (Matrix (transpose m2)) in
+   matmul (Matrix m1) transposedMat
+
+
+matmul :: Matrix -> Matrix -> Matrix
+matmul (Matrix []) _ = Matrix []
+matmul (Matrix (x:xs)) (Matrix m2) =
+  Matrix productMat
+  where
+    productMat = dot:rest
+      where
+        dot = dotProduct x (Matrix m2)
+        Matrix rest = matmul (Matrix xs) (Matrix m2)
+
+dotProduct :: [Int] -> Matrix -> [Int]
+dotProduct vec (Matrix []) = []
+dotProduct vec (Matrix (y:ys)) =
+  sum (vecMul vec y):rest
+  where
+    rest = dotProduct vec (Matrix ys)
+
+vecMul :: [Int] -> [Int] -> [Int]
+vecMul [] v2 = []
+vecMul (x:xs) (y:ys) =
+  x*y:rest
+  where
+    rest = vecMul xs ys
+        
