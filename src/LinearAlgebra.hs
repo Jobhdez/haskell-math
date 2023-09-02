@@ -37,4 +37,26 @@ traceHelper (x:xs) n =
   (x!!n):rest
   where
     rest = traceHelper xs (n+1)
-    
+
+upperTriangular :: [[Int]] -> [[Int]]
+upperTriangualr sqMatrix =
+  upperTriangularHelper sqMatrix 0
+
+upperTriangularHelper :: [[Int]] -> Int -> [[Int]]
+upperTriangularHelper [] n = []
+upperTriangularHelper (x:xs) numOfZeros =
+  insertZeros x numOfZeros:rest
+  where
+    rest = upperTriangularHelper xs (numOfZeros + 1)
+
+insertZeros :: [Int] -> Int -> [Int]
+insertZeros row numOfZeros =
+  let zeros = insertZerosHelper numOfZeros in
+   zeros ++ drop numOfZeros row
+insertZerosHelper :: Int  -> [Int]
+insertZerosHelper 0 = []
+insertZerosHelper numOfZeros =
+  0:rest
+  where
+    rest = insertZerosHelper (numOfZeros - 1)
+  
