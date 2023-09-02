@@ -2,6 +2,10 @@ module LinearAlgebra where
 
 determinant :: [[Int]] -> Int
 determinant matrix =
+  -- Expects a 3x3 matrix
+  -- Example:
+  --   ghci> determinant  [[1,2,3],[45,60,33], [100,45,32]]
+  --   -7770
   e1 - e2 + e3
   where
     row = matrix!!0
@@ -40,10 +44,18 @@ traceHelper (x:xs) n =
 
 upperTriangular :: [[Int]] -> [[Int]]
 upperTriangular sqMatrix =
+  -- expects a square matrix - i.e., mxm
+  -- Example:
+  --    ghci> uppertriangular [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
+  --    [[1,2,3,4],[0,6,7,8],[0,0,11,12],[0,0,0,16]]
   upperTriangularHelper sqMatrix 0
 
 lowerTriangular :: [[Int]] -> [[Int]]
 lowerTriangular sqMatrix =
+  -- expects a square matrix i.e., MxM
+  -- Example:
+  --    ghci> lowertriangular [[3,4,5,6], [5,6,7,8], [7,8,9,0], [6,7,8,9]]
+  --    [[3,0,0,0],[5,6,0,0],[7,8,9,0],[6,7,8,9]]
   let row = sqMatrix!!0 in
     let numZeros = (length row) - 1 in
       lowerTriangularHelper sqMatrix numZeros
