@@ -46,7 +46,7 @@ upperTriangular :: [[Int]] -> [[Int]]
 upperTriangular sqMatrix =
   -- expects a square matrix - i.e., mxm
   -- Example:
-  --    ghci> uppertriangular [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
+  --    ghci> upperTriangular [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
   --    [[1,2,3,4],[0,6,7,8],[0,0,11,12],[0,0,0,16]]
   upperTriangularHelper sqMatrix 0
 
@@ -54,7 +54,7 @@ lowerTriangular :: [[Int]] -> [[Int]]
 lowerTriangular sqMatrix =
   -- expects a square matrix i.e., MxM
   -- Example:
-  --    ghci> lowertriangular [[3,4,5,6], [5,6,7,8], [7,8,9,0], [6,7,8,9]]
+  --    ghci> lowerTriangular [[3,4,5,6], [5,6,7,8], [7,8,9,0], [6,7,8,9]]
   --    [[3,0,0,0],[5,6,0,0],[7,8,9,0],[6,7,8,9]]
   let row = sqMatrix!!0 in
     let numZeros = (length row) - 1 in
