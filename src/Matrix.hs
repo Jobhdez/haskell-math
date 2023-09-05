@@ -47,4 +47,10 @@ vecMul (x:xs) (y:ys) =
   x*y:rest
   where
     rest = vecMul xs ys
-        
+
+
+pow :: Matrix -> Int -> Matrix
+pow (Matrix m1) int =
+  (Matrix m2)
+  where
+    m2 = map (\x -> map (\x -> x ^ int) x) m1
