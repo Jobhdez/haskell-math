@@ -54,3 +54,7 @@ pow (Matrix m1) int =
   (Matrix m2)
   where
     m2 = map (\x -> map (\x -> x ^ int) x) m1
+
+exponential :: Matrix -> [[Float]]
+exponential (Matrix m1) =
+  map (\x -> map (\x -> exp (fromIntegral x)) x) m1
