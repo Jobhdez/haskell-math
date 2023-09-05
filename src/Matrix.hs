@@ -58,3 +58,7 @@ pow (Matrix m1) int =
 exponential :: Matrix -> [[Float]]
 exponential (Matrix m1) =
   map (\x -> map (\x -> exp (fromIntegral x)) x) m1
+
+matLog :: Matrix -> [[Float]]
+matLog (Matrix m1) =
+  map (\x -> map (\x -> log (fromIntegral x)) x) m1
