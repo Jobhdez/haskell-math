@@ -59,7 +59,7 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  Fraction, Matrix, MatrixVec, LinearAlgebra, Vector, Polynomial
+    exposed-modules:  Fraction, Matrix, MatrixVec, LinearAlgebra, Vector, Polynomial, ArithTypeClass
 
     -- Modules included in this library but not exported.
     -- other-modules:
