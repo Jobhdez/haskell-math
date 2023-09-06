@@ -26,4 +26,5 @@ main = hspec $ do
   describe "Matrix Arith" $ do
     it "test matrix addition" $ do
       add (Matrix [[3,4,5],[5,6,7]])  (Matrix [[1,2,3],[1,1,1]]) `shouldBe` (Matrix [[4,6,8],[6,7,8]])
+      sub (Matrix [[3,4,5],[5,6,7]])  (Matrix [[1,2,3],[1,1,1]]) `shouldBe` (Matrix [[2,2,2],[4,5,6]])
 
