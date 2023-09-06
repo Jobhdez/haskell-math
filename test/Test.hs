@@ -4,11 +4,13 @@ import Test.Hspec
 import Test.QuickCheck
 import Control.Exception (evaluate)
 import LinearAlgebra
+import ArithTypeClass
+import Matrix
 
 
 main :: IO ()
 main = hspec $ do
-  describe "Prelude.head" $ do
+  describe "Linear Algebra" $ do
     it "test the determinant of the matrix" $ do
       determinant [[1,2,3], [45,60,33], [100,45,32]] `shouldBe` -7770
 
@@ -20,3 +22,8 @@ main = hspec $ do
 
     it "test the lowertriangular of a square matrix" $ do
       lowerTriangular [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]] `shouldBe` [[1,0,0,0],[5,6,0,0],[9,10,11,0],[13,14,15,16]]
+
+  describe "Matrix Arith" $ do
+    it "test matrix addition" $ do
+      add (Matrix [[3,4,5],[5,6,7]])  (Matrix [[1,2,3],[1,1,1]]) `shouldBe` (Matrix [[4,6,8],[6,7,8]])
+
