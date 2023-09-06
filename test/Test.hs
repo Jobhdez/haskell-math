@@ -17,4 +17,6 @@ main = hspec $ do
 
     it "test the uppertriangular of a square matrix" $ do
       upperTriangular  [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]] `shouldBe` [[1,2,3,4],[0,6,7,8],[0,0,11,12],[0,0,0,16]]
-      
+
+    it "test the lowertriangular of a square matrix" $ do
+      lowerTriangular [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]] `shouldBe` [[1,0,0,0],[5,6,0,0],[9,10,11,0],[13,14,15,16]]
