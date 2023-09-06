@@ -28,4 +28,5 @@ main = hspec $ do
       add (Matrix [[3,4,5],[5,6,7]])  (Matrix [[1,2,3],[1,1,1]]) `shouldBe` (Matrix [[4,6,8],[6,7,8]])
       sub (Matrix [[3,4,5],[5,6,7]])  (Matrix [[1,2,3],[1,1,1]]) `shouldBe` (Matrix [[2,2,2],[4,5,6]])
       mul (Matrix [[2,3,4],[4,5,6]]) (Matrix [[2,3],[4,5],[6,7]]) `shouldBe` (Matrix [[40,49],[64,79]])
+      pow (Matrix [[2,3,4],[4,5,6]]) 3 `shouldBe` (Matrix [[8,27,64],[64,125,216]])
 
