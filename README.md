@@ -14,7 +14,10 @@ just a simple exercise to learn more about haskell.
 ## Vector
 - addition
 - subtraction
-- dot product
+- element wise multiplication
+- power
+- exponential
+- log
 
 ## Linear Algebra
 - determinant of 3x3 matrices
@@ -26,10 +29,7 @@ just a simple exercise to learn more about haskell.
 - addition
 - subtraction
 - multiplication
-- power
-- exponential
-- log
-
+  
 ## Fraction
 - addition
 - subtraction
