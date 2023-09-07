@@ -27,6 +27,11 @@ just a simple exercise to learn more about haskell.
 - subtraction
 - multiplication
 
+## Fraction
+- addition
+- subtraction
+- multiplication
+
 # Tests
 ```
 * cabal test
