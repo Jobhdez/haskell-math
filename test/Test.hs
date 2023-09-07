@@ -52,3 +52,6 @@ main = hspec $ do
     it "test vector element wise multiplication" $ do
       mul (Vector [2,3,4]) (Vector [2,3,4]) `shouldBe` (Vector [4, 9, 16])
 
+    it "test vector power" $ do
+      powv (Vector [2,3,4,5]) 2 `shouldBe` (Vector [4,9,16,25])
+
