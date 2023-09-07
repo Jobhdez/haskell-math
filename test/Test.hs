@@ -46,3 +46,6 @@ main = hspec $ do
     it "test vector addition" $ do
       add (Vector [1,2,3]) (Vector [4,5,6]) `shouldBe` (Vector [5,7,9])
 
+    it "test vector subtraction" $ do
+      sub (Vector [4,5,6]) (Vector [2,3,4]) `shouldBe` (Vector [2,2,2])
+
