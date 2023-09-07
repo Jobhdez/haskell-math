@@ -49,3 +49,6 @@ main = hspec $ do
     it "test vector subtraction" $ do
       sub (Vector [4,5,6]) (Vector [2,3,4]) `shouldBe` (Vector [2,2,2])
 
+    it "test vector element wise multiplication" $ do
+      mul (Vector [2,3,4]) (Vector [2,3,4]) `shouldBe` (Vector [4, 9, 16])
+
