@@ -15,14 +15,14 @@ computeVectors fn (Vector v1) (Vector v2) =
   Vector $ zipWith fn v1 v2
 
 
-pow :: Vector -> Int -> Vector
-pow (Vector v1) int =
+powv :: Vector -> Int -> Vector
+powv (Vector v1) int =
   (Vector v2)
   where
     v2 = map (\x -> x^int) v1
   
-exponential :: Vector -> [Float]
-exponential (Vector v1) =
+exponentialv :: Vector -> [Float]
+exponentialv (Vector v1) =
   map (\x -> exp (fromIntegral x)) v1
 
 
