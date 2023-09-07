@@ -24,3 +24,8 @@ pow (Vector v1) int =
 exponential :: Vector -> [Float]
 exponential (Vector v1) =
   map (\x -> exp (fromIntegral x)) v1
+
+
+vecLog :: Vector -> [Float]
+vecLog (Vector v1) =
+  map (\x -> log (fromIntegral x)) v1
