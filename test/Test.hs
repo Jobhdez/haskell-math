@@ -58,3 +58,6 @@ main = hspec $ do
     it "test vector exponential" $ do
       exponentialv (Vector [2,3,4,5]) `shouldBe` [7.389056,20.085537,54.59815,148.41316]
 
+    it "test vector log" $ do
+      vecLog (Vector [2,3,4,5]) `shouldBe` [0.6931472,1.0986123,1.3862944,1.609438]
+
