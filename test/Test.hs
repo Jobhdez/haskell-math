@@ -55,3 +55,6 @@ main = hspec $ do
     it "test vector power" $ do
       powv (Vector [2,3,4,5]) 2 `shouldBe` (Vector [4,9,16,25])
 
+    it "test vector exponential" $ do
+      exponentialv (Vector [2,3,4,5]) `shouldBe` [7.389056,20.085537,54.59815,148.41316]
+
