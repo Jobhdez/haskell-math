@@ -21,3 +21,6 @@ pow (Vector v1) int =
   where
     v2 = map (\x -> x^int) v1
   
+exponential :: Vector -> [Float]
+exponential (Vector v1) =
+  map (\x -> exp (fromIntegral x)) v1
