@@ -8,11 +8,16 @@ instance ArithMathObject Vector where
   mul = computeVectors (*)
 
 
-data Vector = Vector [Int]
+data Vector = Vector [Int] deriving (Show, Eq)
 
 computeVectors :: (Int -> Int -> Int) -> (Vector -> Vector -> Vector)
 computeVectors fn (Vector v1) (Vector v2) =
   Vector $ zipWith fn v1 v2
 
 
-
+pow :: Vector -> Int -> Vector
+pow (Vector v1) int =
+  (Vector v2)
+  where
+    v2 = map (\x -> x^int) v1
+  
