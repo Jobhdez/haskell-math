@@ -26,6 +26,9 @@ just a simple exercise to learn more about haskell.
 - addition
 - subtraction
 - multiplication
+- power
+- exponential
+- log
 
 ## Fraction
 - addition
