@@ -1,5 +1,7 @@
 module MatrixVec where
 
+  -- the length of the vectors inside the input matrix has to be of the smae length as input vector in all
+  -- three matrix-vector functions below :-)
 
 data Matrix = Matrix [[Int]] deriving (Show, Eq)
 data Vector = Vector [Int] deriving (Show, Eq)
