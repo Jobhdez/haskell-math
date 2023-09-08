@@ -65,3 +65,8 @@ main = hspec $ do
     it "test vector-matrix addition" $ do
       addMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[5,7,9,11],[8,10,12,14]]
 
+    it "test matrix-vector subtraction" $ do
+      subMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[-1,-1,-1,-1],[2,2,2,2]]
+
+    
+
