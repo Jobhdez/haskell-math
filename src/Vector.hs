@@ -29,3 +29,15 @@ exponentialv (Vector v1) =
 vecLog :: Vector -> [Float]
 vecLog (Vector v1) =
   map (\x -> log (fromIntegral x)) v1
+
+
+dotP :: Vector -> Vector -> Int
+dotP v1 v2 =
+  sumElements v3
+  where
+    v3 = mul v1 v2
+
+
+sumElements :: Vector -> Int
+sumElements (Vector v1) =
+  sum v1
