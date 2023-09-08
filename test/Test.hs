@@ -68,5 +68,6 @@ main = hspec $ do
     it "test matrix-vector subtraction" $ do
       subMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[-1,-1,-1,-1],[2,2,2,2]]
 
-    
+    it "test matrix-vector multiplication" $ do
+      mulMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [68,122]
 
