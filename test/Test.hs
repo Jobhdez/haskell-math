@@ -7,6 +7,7 @@ import LinearAlgebra
 import ArithTypeClass
 import Matrix
 import Vector
+import MatrixVec
 
 main :: IO ()
 main = hspec $ do
@@ -60,6 +61,9 @@ main = hspec $ do
 
     it "test vector log" $ do
       vecLog (Vector [2,3,4,5]) `shouldBe` [0.6931472,1.0986123,1.3862944,1.609438]
+
+    it "test dot product" $ do
+      dotP (Vector [3,4,5,6]) (Vector [5,6,7,8]) `shouldBe` 122
 
   describe "Vector-Matrix arithmetic" $ do
     it "test vector-matrix addition" $ do
