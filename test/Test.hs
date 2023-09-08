@@ -61,3 +61,7 @@ main = hspec $ do
     it "test vector log" $ do
       vecLog (Vector [2,3,4,5]) `shouldBe` [0.6931472,1.0986123,1.3862944,1.609438]
 
+  describe "Vector-Matrix arithmetic" $ do
+    it "test vector-matrix addition" $ do
+      addMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[5,7,9,11],[8,10,12,14]]
+
