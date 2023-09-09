@@ -79,3 +79,5 @@ main = hspec $ do
     it "Polynomial addition" $ do
       add (Polynomial [3,4,5]) (Polynomial [2,3,2]) `shouldBe` (Polynomial [5,7,7])
 
+      sub (Polynomial [5,4,3,2]) (Polynomial [2,2,2,2]) `shouldBe` (Polynomial [3,2,1,0])
+
