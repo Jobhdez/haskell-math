@@ -87,3 +87,6 @@ main = hspec $ do
   describe "Fraction arithmetic" $ do
     it "fraction addition" $ do
       add (Fraction (2,3)) (Fraction (2,3)) `shouldBe` (Fraction (12,9))
+
+    it "fraction subtraction" $ do
+     sub (Fraction (2,3)) (Fraction (2,3)) `shouldBe` (Fraction (0,9))
