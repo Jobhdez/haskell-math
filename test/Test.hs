@@ -9,6 +9,7 @@ import Matrix
 import Vector
 import MatrixVec
 import Polynomial
+import Fraction
 
 main :: IO ()
 main = hspec $ do
@@ -83,3 +84,6 @@ main = hspec $ do
 
       mul (Polynomial [3,4,5]) (Polynomial [6,8,10]) `shouldBe` (Polynomial [18,24,30,24,32,40,30,40,50])
 
+  describe "Fraction arithmetic" $ do
+    it "fraction addition" $ do
+      add (Fraction (2,3)) (Fraction (2,3)) `shouldBe` (Fraction (12,9))
