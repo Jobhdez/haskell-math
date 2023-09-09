@@ -81,3 +81,5 @@ main = hspec $ do
 
       sub (Polynomial [5,4,3,2]) (Polynomial [2,2,2,2]) `shouldBe` (Polynomial [3,2,1,0])
 
+      mul (Polynomial [3,4,5]) (Polynomial [6,8,10]) `shouldBe` (Polynomial [18,24,30,24,32,40,30,40,50])
+
