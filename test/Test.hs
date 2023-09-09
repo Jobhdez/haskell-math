@@ -90,3 +90,6 @@ main = hspec $ do
 
     it "fraction subtraction" $ do
      sub (Fraction (2,3)) (Fraction (2,3)) `shouldBe` (Fraction (0,9))
+
+    it "fraction addition" $ do
+     mul (Fraction (2,3)) (Fraction (2,3)) `shouldBe` (Fraction (4,9))
