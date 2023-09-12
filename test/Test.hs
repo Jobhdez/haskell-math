@@ -76,6 +76,7 @@ main = hspec $ do
 
     it "test matrix-vector multiplication" $ do
       mulMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [68,122]
+      
   describe "Polynomial arithmetic" $ do
     it "Polynomial addition" $ do
       add (Polynomial [3,4,5]) (Polynomial [2,3,2]) `shouldBe` (Polynomial [5,7,7])
