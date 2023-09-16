@@ -35,6 +35,11 @@ just a simple toy exercise to learn more about haskell.
 - subtraction
 - multiplication
 
+# API
+```
+* cabal run haskell-Arith
+* curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/compute
+```
 # Tests
 ```
 * cabal test
