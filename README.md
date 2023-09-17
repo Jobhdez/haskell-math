@@ -50,6 +50,15 @@ $ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/
 $ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matTrace
 {"traceExp":15}
 
+$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matUpTriangular
+{
+    "expr": [
+        [2, 3, 4],
+        [0, 3, 7],
+        [0, 0, 7]
+    ]
+}
+
 ```
 ## Troubleshoot
 ```
