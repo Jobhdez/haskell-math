@@ -59,6 +59,14 @@ $ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/
     ]
 }
 
+$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matLowTriangular
+{
+    "expr": [
+        [2, 0, 0],
+        [4, 3, 0],
+        [5, 4, 7]
+    ]
+}
 ```
 ## Troubleshoot
 ```
