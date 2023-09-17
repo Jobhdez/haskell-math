@@ -51,12 +51,11 @@ data DeterminantResponse = DeterminantResponse {
 instance FromJSON ExprInfo
 instance ToJSON ExprInfo
 
-instance FromJSON DeterminantResponse
 instance ToJSON DeterminantResponse
 
 exprForClient :: ExprInfo -> DeterminantResponse
-exprForClient e = DeterminantResponse expr' where
-  expr' = determinant (expr e)
+exprForClient e = DeterminantResponse exp' where
+  exp' = determinant (expr e)
 
 
 lAlgServer :: Server API
