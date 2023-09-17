@@ -40,6 +40,11 @@ just a simple toy exercise to learn more about haskell.
 * cabal run haskell-Arith
 * curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/compute
 ```
+## Troubleshoot
+```
+* lsof -i:8081
+* kill $(lsof -t -i:8081)
+```
 # Tests
 ```
 * cabal test
