@@ -7,26 +7,29 @@ instance ArithMathObject Fraction where
   sub = subFractions (-)
   mul = mulFractions (*)
 
-data  Fraction = Fraction (Int, Int) deriving (Show, Eq)
+data  Fraction = Fraction {
+  numerator :: Int,
+  denominator :: Int
+  } deriving (Show, Eq)
 
 addFractions :: (Int -> Int -> Int) -> (Fraction -> Fraction -> Fraction)
-addFractions fn (Fraction (num, denom)) (Fraction (num2, denom2)) =
-  (Fraction (n, d))
+addFractions fn fraction1 fraction2 =
+  (Fraction n d)
   where
-    n = fn (num * denom2) (num2 * denom)
-    d = denom*denom2
+    n = fn ((numerator fraction1) * (denominator fraction2)) ((numerator fraction2) * (denominator fraction1))
+    d = (denominator fraction1) * (denominator fraction2)
 
 
 subFractions :: (Int -> Int -> Int) -> (Fraction -> Fraction -> Fraction)
-subFractions fn (Fraction (num, denom)) (Fraction (num2, denom2)) =
-  (Fraction (n, d))
+subFractions fn (Fraction num denom) (Fraction num2 denom2) =
+  (Fraction n d)
   where
     n = fn (num * denom2) (num2 * denom)
     d = denom*denom2
 
 mulFractions :: (Int -> Int -> Int) -> (Fraction -> Fraction -> Fraction)
-mulFractions fn (Fraction (num, denom)) (Fraction (num2, denom2)) =
-  (Fraction (n, d))
+mulFractions fn (Fraction num denom) (Fraction num2 denom2) =
+  (Fraction n d)
   where
     n = fn num num2
     d = fn denom denom2
