@@ -53,12 +53,12 @@ $ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/
 ```
 ## Troubleshoot
 ```
-* lsof -i:8081
-* kill $(lsof -t -i:8081)
+$ lsof -i:8081
+$ kill $(lsof -t -i:8081)
 ```
 # Tests
 ```
-* cabal test
+$ cabal test
 ```
 
 thanks
