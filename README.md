@@ -25,6 +25,11 @@ just a simple toy exercise to learn more about haskell.
 - upper triangular
 - lower triangular matrices
 
+## Matrix-Vec
+- matrix-vec addition
+- matrix-vec subtraction
+- matrix-vec multiplication
+
 ## Polynomial
 - addition
 - subtraction
