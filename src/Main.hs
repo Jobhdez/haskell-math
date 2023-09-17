@@ -36,9 +36,9 @@ import Servant.Types.SourceT (source)
 import qualified Data.Aeson.Parser
 import qualified Text.Blaze.Html
 
-import LinearAlgebra (determinant, trace)
+import LinearAlgebra (determinant, trace, upperTriangular)
 
-type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
+type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
 
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
@@ -59,6 +59,7 @@ instance ToJSON DeterminantResponse
 
 instance ToJSON TraceResponse
 
+
 exprForClient :: ExprInfo -> DeterminantResponse
 exprForClient e = DeterminantResponse exp' where
   exp' = determinant (expr e)
@@ -67,16 +68,23 @@ traceForClient :: ExprInfo -> TraceResponse
 traceForClient e = TraceResponse exp' where
   exp' = trace (expr e)
 
+upTriangularForClient :: ExprInfo -> ExprInfo
+upTriangularForClient e = ExprInfo exp' where
+  exp' = upperTriangular (expr e)
+  
 lAlgServer :: Server API
 lAlgServer = det
   :<|> matTrace
+  :<|> matUpTriangular
   where
   det :: ExprInfo -> Handler DeterminantResponse
   det clientInfo = return (exprForClient clientInfo)
 
   matTrace :: ExprInfo -> Handler TraceResponse
   matTrace clientInfo = return (traceForClient clientInfo)
-              
+
+  matUpTriangular :: ExprInfo -> Handler ExprInfo
+  matUpTriangular clientInfo = return (upTriangularForClient clientInfo)
 
 userAPI :: Proxy API
 userAPI = Proxy
