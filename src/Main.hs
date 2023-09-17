@@ -36,9 +36,9 @@ import Servant.Types.SourceT (source)
 import qualified Data.Aeson.Parser
 import qualified Text.Blaze.Html
 
-import LinearAlgebra
+import LinearAlgebra (determinant, trace)
 
-type API = "compute" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
+type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
 
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
@@ -48,20 +48,34 @@ data DeterminantResponse = DeterminantResponse {
   exp :: Int
   } deriving Generic
 
+data TraceResponse = TraceResponse {
+  traceExp :: Int
+  } deriving Generic
+
 instance FromJSON ExprInfo
 instance ToJSON ExprInfo
 
 instance ToJSON DeterminantResponse
 
+instance ToJSON TraceResponse
+
 exprForClient :: ExprInfo -> DeterminantResponse
 exprForClient e = DeterminantResponse exp' where
   exp' = determinant (expr e)
 
+traceForClient :: ExprInfo -> TraceResponse
+traceForClient e = TraceResponse exp' where
+  exp' = trace (expr e)
 
 lAlgServer :: Server API
-lAlgServer = compute where
-  compute :: ExprInfo -> Handler DeterminantResponse
-  compute clientInfo = return (exprForClient clientInfo)
+lAlgServer = det
+  :<|> matTrace
+  where
+  det :: ExprInfo -> Handler DeterminantResponse
+  det clientInfo = return (exprForClient clientInfo)
+
+  matTrace :: ExprInfo -> Handler TraceResponse
+  matTrace clientInfo = return (traceForClient clientInfo)
               
 
 userAPI :: Proxy API
