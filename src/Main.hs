@@ -38,23 +38,30 @@ import qualified Text.Blaze.Html
 
 import LinearAlgebra
 
-type API = "compute" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] Int
+type API = "compute" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
 
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
   } deriving Generic
 
+data DeterminantResponse = DeterminantResponse {
+  exp :: Int
+  } deriving Generic
+
 instance FromJSON ExprInfo
 instance ToJSON ExprInfo
 
-exprForClient :: ExprInfo -> Int
-exprForClient e = expr' where
+instance FromJSON DeterminantResponse
+instance ToJSON DeterminantResponse
+
+exprForClient :: ExprInfo -> DeterminantResponse
+exprForClient e = DeterminantResponse expr' where
   expr' = determinant (expr e)
 
 
 lAlgServer :: Server API
 lAlgServer = compute where
-  compute :: ExprInfo -> Handler Int
+  compute :: ExprInfo -> Handler DeterminantResponse
   compute clientInfo = return (exprForClient clientInfo)
               
 
