@@ -42,17 +42,23 @@ just a simple toy exercise to learn more about haskell.
 
 # API
 ```
-* cabal run haskell-Arith
-* curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/compute
+$ cabal run haskell-Arith
+
+$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/det
+{"exp":-3}
+
+$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matTrace
+{"traceExp":15}
+
 ```
 ## Troubleshoot
 ```
-* lsof -i:8081
-* kill $(lsof -t -i:8081)
+$ lsof -i:8081
+$ kill $(lsof -t -i:8081)
 ```
 # Tests
 ```
-* cabal test
+$ cabal test
 ```
 
 thanks
