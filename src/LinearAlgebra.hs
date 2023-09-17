@@ -2,7 +2,7 @@ module LinearAlgebra where
 
 determinant :: [[Int]] -> Int
 determinant matrix =
-  -- Expects a 3x3 matrix
+  -- Given: a 3x3 matrix
   -- Example:
   --   ghci> determinant  [[1,2,3],[45,60,33], [100,45,32]]
   --   -7770
@@ -29,7 +29,7 @@ computeTwoDDeterminant matrix =
 
 trace :: [[Int]] -> Int
 trace matrix =
-  -- expects a square matrix
+  -- Given: a square matrix ie NxN
   -- Example:
   --   ghci> trace [[2,1,5],[2,3,4],[0,1,0]]
   --   5
@@ -44,7 +44,7 @@ traceHelper (x:xs) n =
 
 upperTriangular :: [[Int]] -> [[Int]]
 upperTriangular sqMatrix =
-  -- expects a square matrix - i.e., mxm
+  -- Given: a square matrix - i.e., mxm
   -- Example:
   --    ghci> upperTriangular [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
   --    [[1,2,3,4],[0,6,7,8],[0,0,11,12],[0,0,0,16]]
@@ -52,7 +52,7 @@ upperTriangular sqMatrix =
 
 lowerTriangular :: [[Int]] -> [[Int]]
 lowerTriangular sqMatrix =
-  -- expects a square matrix i.e., MxM
+  -- Given: a square matrix i.e., MxM
   -- Example:
   --    ghci> lowerTriangular [[3,4,5,6], [5,6,7,8], [7,8,9,0], [6,7,8,9]]
   --    [[3,0,0,0],[5,6,0,0],[7,8,9,0],[6,7,8,9]]
@@ -63,6 +63,7 @@ lowerTriangular sqMatrix =
 upperTriangularHelper :: [[Int]] -> Int -> [[Int]]
 upperTriangularHelper [] n = []
 upperTriangularHelper (x:xs) numOfZeros =
+-- Given: a square matrix ie mxm
   insertZeros x numOfZeros:rest
   where
     rest = upperTriangularHelper xs (numOfZeros + 1)
