@@ -36,7 +36,12 @@ import Servant.Types.SourceT (source)
 import qualified Data.Aeson.Parser
 import qualified Text.Blaze.Html
 
-import LinearAlgebra (determinant, trace, upperTriangular, lowerTriangular)
+import LinearAlgebra (
+  determinant,
+  trace,
+  upperTriangular,
+  lowerTriangular
+  )
 
 type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo :<|> "matLowTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
 
