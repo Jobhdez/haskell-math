@@ -70,6 +70,9 @@ main = hspec $ do
     it "test dot product" $ do
       dotP (Vector [3,4,5,6]) (Vector [5,6,7,8]) `shouldBe` 122
 
+    it "test element wise absolute value" $ do
+      vecAbs (Vector [(-3), 4, (-4)]) `shouldBe` (Vector [3,4,4])
+
   describe "Vector-Matrix arithmetic" $ do
     it "test vector-matrix addition" $ do
       addMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[5,7,9,11],[8,10,12,14]]
