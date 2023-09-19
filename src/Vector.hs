@@ -41,3 +41,8 @@ dotP v1 v2 =
 sumElements :: Vector -> Int
 sumElements (Vector v1) =
   sum v1
+
+vecAbs :: Vector -> Vector
+vecAbs (Vector v) =
+  (Vector v2) where
+  v2 = map (\x -> abs x) v
