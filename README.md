@@ -7,17 +7,19 @@ just a simple toy exercise to learn more about haskell.
 - addition
 - subtraction
 - multiplication
-- power
-- exponential
-- log
+- element wise power
+- element wise exponential
+- element wise log
+- element wise absolute value
 
 ## Vector
 - addition
 - subtraction
 - element wise multiplication
-- power
-- exponential
-- log
+- element wise power
+- element wise exponential
+- element wise log
+- element wise absolute value
 
 ## Linear Algebra
 - determinant of 3x3 matrices
