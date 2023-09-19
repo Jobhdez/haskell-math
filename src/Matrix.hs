@@ -62,3 +62,8 @@ exponential (Matrix m1) =
 matLog :: Matrix -> [[Float]]
 matLog (Matrix m1) =
   map (\x -> map (\x -> log (fromIntegral x)) x) m1
+
+matAbs :: Matrix -> Matrix
+matAbs (Matrix m1) =
+  (Matrix m2) where
+  m2 = map (\x -> map (\x -> abs x) x) m1
