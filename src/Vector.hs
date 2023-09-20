@@ -51,3 +51,8 @@ maximumv :: Vector -> Vector -> Vector
 maximumv (Vector v1) (Vector v2) =
   (Vector v3) where
   v3 = map (\(x,y) -> if x<y then y else x) $ zip v1 v2
+
+minimumv :: Vector -> Vector -> Vector
+minimumv (Vector v1) (Vector v2) =
+  (Vector v3) where
+  v3 = map (\(x,y) -> if x<y then x else y) $ zip v1 v2
