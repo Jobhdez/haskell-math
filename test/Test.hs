@@ -51,6 +51,9 @@ main = hspec $ do
     it "test matrix maximum" $ do
        maximumm (Matrix [[1,1,1,1], [2,2,2,2]]) (Matrix [[2,2,2,2], [3,3,3,3]]) `shouldBe` (Matrix [[2,2,2,2],[3,3,3,3]])
 
+    it "test matrix minimum" $ do
+      minimumm (Matrix [[3,3,3,3],[4,5,6,7]]) (Matrix [[2,2,2,2],[2,2,2,2]]) `shouldBe` (Matrix [[2,2,2,2],[2,2,2,2]])
+
   describe "Vector addition" $ do
     it "test vector addition" $ do
       add (Vector [1,2,3]) (Vector [4,5,6]) `shouldBe` (Vector [5,7,9])
