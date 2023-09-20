@@ -46,3 +46,8 @@ vecAbs :: Vector -> Vector
 vecAbs (Vector v) =
   (Vector v2) where
   v2 = map (\x -> abs x) v
+
+maximumv :: Vector -> Vector -> Vector
+maximumv (Vector v1) (Vector v2) =
+  (Vector v3) where
+  v3 = map (\(x,y) -> if x<y then y else x) $ zip v1 v2
