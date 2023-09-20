@@ -82,6 +82,9 @@ main = hspec $ do
     it  "test vector maximum" $ do
       maximumv (Vector [2,3,4,5]) (Vector [1,2,5,6]) `shouldBe` (Vector [2,3,5,6])
 
+    it "test vector minimum" $ do
+      minimumv (Vector [3,4,5]) (Vector [2,1,2]) `shouldBe` (Vector [2,1,2])
+
   describe "Vector-Matrix arithmetic" $ do
     it "test vector-matrix addition" $ do
       addMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[5,7,9,11],[8,10,12,14]]
