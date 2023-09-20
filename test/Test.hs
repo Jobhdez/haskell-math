@@ -73,6 +73,9 @@ main = hspec $ do
     it "test element wise absolute value" $ do
       vecAbs (Vector [(-3), 4, (-4)]) `shouldBe` (Vector [3,4,4])
 
+    it  "test vector maximum" $ do
+      maximumv (Vector [2,3,4,5]) (Vector [1,2,5,6]) `shouldBe` (Vector [2,3,5,6])
+
   describe "Vector-Matrix arithmetic" $ do
     it "test vector-matrix addition" $ do
       addMatrixVec [[2,3,4,5],[5,6,7,8]] [3,4,5,6] `shouldBe` [[5,7,9,11],[8,10,12,14]]
