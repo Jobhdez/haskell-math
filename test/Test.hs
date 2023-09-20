@@ -48,6 +48,9 @@ main = hspec $ do
     it "test matrix element wise absolute value" $ do
       matAbs (Matrix [[(-2),3, (-4)], [5, (-6), (-7)]]) `shouldBe` (Matrix [[2,3,4],[5,6,7]])
 
+    it "test matrix maximum" $ do
+       maximumm (Matrix [[1,1,1,1], [2,2,2,2]]) (Matrix [[2,2,2,2], [3,3,3,3]]) `shouldBe` (Matrix [[2,2,2,2],[3,3,3,3]])
+
   describe "Vector addition" $ do
     it "test vector addition" $ do
       add (Vector [1,2,3]) (Vector [4,5,6]) `shouldBe` (Vector [5,7,9])
