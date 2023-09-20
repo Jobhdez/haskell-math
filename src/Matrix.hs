@@ -67,3 +67,8 @@ matAbs :: Matrix -> Matrix
 matAbs (Matrix m1) =
   (Matrix m2) where
   m2 = map (\x -> map (\x -> abs x) x) m1
+
+maximumm :: Matrix -> Matrix -> Matrix
+maximumm (Matrix m1) (Matrix m2) =
+  (Matrix m3) where
+  m3 = map (\(x,y) -> map (\(x,y) -> if x < y then y else x) $ zip x y) $ zip m1 m2
