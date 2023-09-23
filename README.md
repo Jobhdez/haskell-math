@@ -25,7 +25,7 @@ just a simple toy exercise to learn more about haskell.
 - determinant of 3x3 matrices
 - trace 
 - upper triangular
-- lower triangular matrices
+- lower triangular 
 
 ## Matrix-Vec
 - matrix-vec addition
