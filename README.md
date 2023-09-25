@@ -11,6 +11,8 @@ just a simple toy exercise to learn more about haskell.
 - element wise exponential
 - element wise log
 - element wise absolute value
+- maximum
+- minimum
 
 ## Vector
 - addition
@@ -19,7 +21,9 @@ just a simple toy exercise to learn more about haskell.
 - element wise power
 - element wise exponential
 - element wise log
-- element wise absolute value
+- element wise absolute value'
+- maximum
+- minimum
 
 ## Linear Algebra
 - determinant of 3x3 matrices
