@@ -10,6 +10,7 @@ import Vector
 import MatrixVec
 import Polynomial
 import Fraction
+import NeuralNetworks
 
 main :: IO ()
 main = hspec $ do
@@ -112,3 +113,7 @@ main = hspec $ do
 
     it "fraction addition" $ do
      mul (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 4 9)
+     
+  describe "Neural networks" $ do
+    it "softmax test" $ do
+      softmax [(-1), 0, 3, 5] `shouldBe` [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043]
