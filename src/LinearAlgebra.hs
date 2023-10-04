@@ -92,11 +92,3 @@ insertZerosHelper numOfZeros =
   0:rest
   where
     rest = insertZerosHelper (numOfZeros - 1)
-
-softmax :: [Int] -> [Float]
-softmax vec =
-  let expVec = map (\x -> exp (fromIntegral x)) vec
-      sumExps = sum expVec
-  in
-    map (\x -> x / sumExps) expVec
-  
