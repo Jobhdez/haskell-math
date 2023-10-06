@@ -7,3 +7,11 @@ softmax vec =
   in
     map (\x -> x / sumExps) expVec
   
+
+logsoftmax :: [Int] -> [Float]
+logsoftmax vec =
+  let smax = softmax vec
+  in
+    map (\x -> log x) smax
+    
+    
