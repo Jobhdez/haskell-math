@@ -1,0 +1,13 @@
+TODO FEATURES
+~~~~~~~~~~~~~~
+
+* take the polynomial system from PAIP and write a similar one for haskell
+* so far I have a basic computer algebra system so maybe I can implement non trivial computer algebra; so far what I have implemented has been trivial :)
+* take a look at SymPy
+
+
+IMPROVE STRUCTURE
+~~~~~~~~~~~~~~~~~~~
+
+You need type classes ie interfaces to structure the code; for example `softmax` and `logsoftmax` and other funtions
+can take either ints or floats and softmax and logsoftmax work on tensors but for now structure the code that refelcts this instead of multiple specialized functions. TYPECLASSES are the way I think.
