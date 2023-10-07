@@ -35,7 +35,7 @@ just a simple toy exercise to learn more about haskell.
 - 1D softmax
 - 1D logsoftmax
 - 2D softmax
-- 2D softmax
+- 2D logsoftmax
 
 ## Matrix-Vec
 - matrix-vec addition
