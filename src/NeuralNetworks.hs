@@ -9,9 +9,6 @@ data Matrixf = Matrixf [[Float]] deriving (Show, Eq)
 getVector :: Vector -> [Int]
 getVector (Vector vec) = vec
 
-getMatrix :: Matrix -> [[Int]]
-getMatrix (Matrix mat) = mat
-
 getVectorf :: Vectorf -> [Float]
 getVectorf (Vectorf vf) = vf
 
@@ -38,31 +35,6 @@ instance NN2D Matrix where
 instance NN2D Matrixf where
   softmax2d = softmaxf2d
   logsoftmax2d = logsoftmaxf2d
-{-
-class NN a where
-  softmax :: a -> [Float]
-  logsoftmax :: a -> [Float]
-
-class NNf a where
-  softmaxf :: a -> a
-  logsoftmaxf :: a -> a
-
-instance NN [Int] where
-  softmax = softmax'
-  logsoftmax = logsoftmax'
-
-instance NN [[Int]] where
-  softmax = softmax2d
-  logsoftmax = logsoftmax2d
-
-instance NNf [Float] where
-  softmaxf = softmaxf'
-  logsoftmaxf = logsoftmaxf'
-
-instance NNf [[Float]] where
-  softmaxf = softmaxf2d
-  logsoftmaxf = logsoftmaxf2d
--}
 
 softmax' :: Vector -> Vectorf
 softmax' (Vector vec) =
