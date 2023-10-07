@@ -10,4 +10,17 @@ IMPROVE STRUCTURE
 ~~~~~~~~~~~~~~~~~~~
 
 You need type classes ie interfaces to structure the code; for example `softmax` and `logsoftmax` and other funtions
-can take either ints or floats and softmax and logsoftmax work on tensors but for now structure the code that refelcts this instead of multiple specialized functions. TYPECLASSES are the way I think.
+can take either ints or floats and softmax and logsoftmax work on tensors but for now structure the code that refelcts this instead of multiple specialized functions. TYPECLASSES 
+are the way I think.
+
+How do you structure your system to have the same interface; for instance, I would like the following interface:
+     - softmax
+     - softmaxf
+to cover 
+
+[Int]-> [Float]            
+[[Int]] -> [[Float]]     
+
+and 
+[Float] -> [Float]
+[[Float]] -> [[Float]]
