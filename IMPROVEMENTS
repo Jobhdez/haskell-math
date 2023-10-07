@@ -18,9 +18,14 @@ How do you structure your system to have the same interface; for instance, I wou
      - softmaxf
 to cover 
 
+softmax:
 [Int]-> [Float]            
 [[Int]] -> [[Float]]     
 
 and 
+softmaxf:
 [Float] -> [Float]
 [[Float]] -> [[Float]]
+
+It is pretty simple I think. I havent tested this
+but I need to use `type` and define Matrix, Vector and Matrixf and Vectorf
