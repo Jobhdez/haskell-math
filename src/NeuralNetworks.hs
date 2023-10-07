@@ -35,7 +35,9 @@ instance NN2D Matrix where
   softmax2d = softmax2d'
   logsoftmax2d = logsoftmax2d'
 
-
+instance NN2D Matrixf where
+  softmax2d = softmaxf2d
+  logsoftmax2d = logsoftmaxf2d
 {-
 class NN a where
   softmax :: a -> [Float]
@@ -106,12 +108,16 @@ logsoftmaxf' (Vectorf vec) =
   in
     (Vectorf fvec)
     
-{-
-softmaxf2d :: [[Float]] -> [[Float]]
-softmaxf2d matrix =
-  map (\x -> softmaxf' x) matrix
 
-logsoftmaxf2d :: [[Float]] -> [[Float]]
-logsoftmaxf2d matrix =
-  map (\x -> logsoftmaxf' x) matrix
--}
+softmaxf2d :: Matrixf -> Matrixf
+softmaxf2d (Matrixf matrix) =
+  (Matrixf matf)
+  where
+    matf = map (\x -> (getVectorf (softmaxf' (Vectorf x)))) matrix
+
+logsoftmaxf2d :: Matrixf -> Matrixf
+logsoftmaxf2d (Matrixf matrix) =
+  (Matrixf matf)
+  where
+    matf = map (\x -> (getVectorf (logsoftmaxf' (Vectorf x)))) matrix
+
