@@ -1,4 +1,30 @@
 module NeuralNetworks where
+
+import Matrix 
+import Vector 
+
+data Vectorf = Vectorf [Float] deriving (Show, Eq)
+
+getVector :: Vector -> [Int]
+getVector (Vector vec) = vec
+
+getMatrix :: Matrix -> [[Int]]
+getMatrix (Matrix mat) = mat
+
+getVectorf :: Vectorf -> [Float]
+getVectorf (Vectorf vf) = vf
+
+class NN a where
+  softmax :: a -> Vectorf
+  logsoftmax :: a -> Vectorf
+
+instance NN Vector where
+  softmax = softmax'
+  logsoftmax = logsoftmax'
+
+instance NN Vectorf where
+  softmax = softmaxf'
+  logsoftmax = logsoftmaxf'
 {-
 class NN a where
   softmax :: a -> [Float]
@@ -25,21 +51,23 @@ instance NNf [[Float]] where
   logsoftmaxf = logsoftmaxf2d
 -}
 
-softmax' :: [Int] -> [Float]
-softmax' vec =
+softmax' :: Vector -> Vectorf
+softmax' (Vector vec) =
   let expVec = map (\x -> exp (fromIntegral x)) vec
       sumExps = sum expVec
+      fvec = map (\x -> x / sumExps) expVec
   in
-    map (\x -> x / sumExps) expVec
+    (Vectorf fvec)
   
 
-logsoftmax' :: [Int] -> [Float]
-logsoftmax' vec =
-  let smax = softmax' vec
+logsoftmax' :: Vector -> Vectorf
+logsoftmax' (Vector vec) =
+  let smax = softmax' (Vector vec)
+      fvec = map (\x -> log x) (getVectorf smax)
   in
-    map (\x -> log x) smax
+    (Vectorf fvec)
     
-    
+{-
 softmax2d :: [[Int]] -> [[Float]]
 softmax2d matrix =
   map (\x -> softmax' x) matrix
@@ -47,21 +75,24 @@ softmax2d matrix =
 logsoftmax2d :: [[Int]] -> [[Float]]
 logsoftmax2d matrix =
   map (\x -> logsoftmax' x) matrix
-
-softmaxf' :: [Float] -> [Float]
-softmaxf' vec =
+-}
+softmaxf' :: Vectorf -> Vectorf
+softmaxf' (Vectorf vec) =
   let expVec = map (\x -> exp x) vec
       sumExps = sum expVec
+      fvec = map (\x -> x / sumExps) expVec
   in
-    map (\x -> x / sumExps) expVec
+    (Vectorf fvec)
+  
+logsoftmaxf' :: Vectorf -> Vectorf
+logsoftmaxf' (Vectorf vec) =
+  let smax = softmaxf' (Vectorf vec)
+      fvec = map (\x -> log x) (getVectorf smax)
 
-logsoftmaxf' :: [Float] -> [Float]
-logsoftmaxf' vec =
-  let smax = softmaxf' vec
   in
-    map (\x -> log x) smax
-
-
+    (Vectorf fvec)
+    
+{-
 softmaxf2d :: [[Float]] -> [[Float]]
 softmaxf2d matrix =
   map (\x -> softmaxf' x) matrix
@@ -69,3 +100,4 @@ softmaxf2d matrix =
 logsoftmaxf2d :: [[Float]] -> [[Float]]
 logsoftmaxf2d matrix =
   map (\x -> logsoftmaxf' x) matrix
+-}
