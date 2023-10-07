@@ -32,7 +32,8 @@ just a simple toy exercise to learn more about haskell.
 - lower triangular
 
 ## Neural Networks
-- softmax
+- 1D softmax
+- 1D logsoftmax
 
 ## Matrix-Vec
 - matrix-vec addition
