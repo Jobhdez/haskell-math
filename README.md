@@ -34,6 +34,8 @@ just a simple toy exercise to learn more about haskell.
 ## Neural Networks
 - 1D softmax
 - 1D logsoftmax
+- 2D softmax
+- 2D softmax
 
 ## Matrix-Vec
 - matrix-vec addition
