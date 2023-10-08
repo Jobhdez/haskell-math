@@ -32,10 +32,11 @@ just a simple toy exercise to learn more about haskell.
 - lower triangular
 
 ## Neural Networks
-- 1D softmax
-- 1D logsoftmax
-- 2D softmax
-- 2D logsoftmax
+*Data Types supported*: `[Int]`, `[Float]`, `[[Int]]`, `[[Float]]`
+- softmax
+- logsoftmax
+- softmax2d
+- logsoftmax2d
 
 ## Matrix-Vec
 - matrix-vec addition
