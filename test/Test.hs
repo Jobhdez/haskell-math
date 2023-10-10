@@ -120,3 +120,11 @@ main = hspec $ do
 
     it "logsoftmax test" $ do
       logsoftmax (Vector [2,3,4,5,6]) `shouldBe` (Vectorf [-4.4519143,-3.4519143,-2.4519143,-1.4519143,-0.45191434])
+
+    it "softmax float test" $ do
+      softmax Vectorf [3.2,4.5,2.1] `shouldBe` Vectorf [0.19991335,0.7335413,6.654536e-2]
+
+    it "logsoftmax float test" $ do
+      logsoftmax Vectorf [3.2,4.5,2.1] `shouldBe` Vectorf [-1.6098713,-0.30987138,-2.7098715]
+
+    
