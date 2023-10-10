@@ -1,5 +1,5 @@
-# haskell-Arith
-just a simple toy exercise to learn more about haskell.
+# haskell-math
+just a simple toy math library to learn more about haskell.
 
 # Functionality
 
