@@ -5,6 +5,8 @@ import Vector
 
 data Vectorf = Vectorf [Float] deriving (Show, Eq)
 data Matrixf = Matrixf [[Float]] deriving (Show, Eq)
+data VectorExp = V Vector | Vf Vectorf deriving (Show, Eq)
+data MatrixExp = M Matrix | Mf Matrixf deriving (Show, Eq)
 
 getVector :: Vector -> [Int]
 getVector (Vector vec) = vec
@@ -15,26 +17,32 @@ getVectorf (Vectorf vf) = vf
 class NN a where
   softmax :: a -> Vectorf
   logsoftmax :: a -> Vectorf
+  relu :: a -> VectorExp
 
 instance NN Vector where
   softmax = softmax'
   logsoftmax = logsoftmax'
+  relu = reluV
 
 instance NN Vectorf where
   softmax = softmaxf'
   logsoftmax = logsoftmaxf'
+  relu = reluVf
 
 class NN2D a where
   softmax2d :: a -> Matrixf
   logsoftmax2d :: a -> Matrixf
+  relu2d :: a -> MatrixExp
 
 instance NN2D Matrix where
   softmax2d = softmax2d'
   logsoftmax2d = logsoftmax2d'
+  relu2d = reluM
 
 instance NN2D Matrixf where
   softmax2d = softmaxf2d
   logsoftmax2d = logsoftmaxf2d
+  relu2d = reluMf
 
 softmax' :: Vector -> Vectorf
 softmax' (Vector vec) =
@@ -93,3 +101,33 @@ logsoftmaxf2d (Matrixf matrix) =
   where
     matf = map (\x -> (getVectorf (logsoftmaxf' (Vectorf x)))) matrix
 
+
+reluM :: Matrix -> MatrixExp
+reluM (Matrix mat) =
+  (M (Matrix m))
+  where
+    m = map(\x -> map(\x ->  relu' x) x) mat
+
+reluMf :: Matrixf -> MatrixExp
+reluMf (Matrixf mat) =
+  (Mf (Matrixf m))
+  where
+    m = map(\x -> map(\x -> reluf' x) x) mat
+
+reluV :: Vector -> VectorExp
+reluV (Vector vec) =
+  (V (Vector v))
+  where
+    v = map(\x ->  relu' x) vec
+
+reluVf :: Vectorf -> VectorExp
+reluVf (Vectorf vec) =
+  (Vf (Vectorf v))
+  where
+    v = map(\x ->  reluf' x) vec
+
+relu' :: Int -> Int
+relu' n = max 0 n
+
+reluf' :: Float -> Float
+reluf' n = max 0 n
