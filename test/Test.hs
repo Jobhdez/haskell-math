@@ -135,4 +135,7 @@ main = hspec $ do
 
     it "relu Float matrix test" $ do
       relu2d (Matrixf [[2.3, (-3.2), 4], [2.3, (-2.2), 3.3]]) `shouldBe` (Matf [[2.3,0.0,4.0],[2.3,0.0,3.3]])
+
+    it "relu Int matrix test" $ do
+      relu2d (Matrix [[3,4,5,(-3), (-2)], [3,4,5,(-3), (-2)]]) `shouldBe` (Mat [[3,4,5,0,0],[3,4,5,0,0]])
     
