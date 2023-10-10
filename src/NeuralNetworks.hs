@@ -5,8 +5,8 @@ import Vector
 
 data Vectorf = Vectorf [Float] deriving (Show, Eq)
 data Matrixf = Matrixf [[Float]] deriving (Show, Eq)
-data VectorExp = V Vector | Vf Vectorf deriving (Show, Eq)
-data MatrixExp = M Matrix | Mf Matrixf deriving (Show, Eq)
+data VectorExp = V [Int] | Vf [Float] deriving (Show, Eq)
+data MatrixExp = M [[Int]] | Mf [[Float]] deriving (Show, Eq)
 
 getVector :: Vector -> [Int]
 getVector (Vector vec) = vec
@@ -104,25 +104,25 @@ logsoftmaxf2d (Matrixf matrix) =
 
 reluM :: Matrix -> MatrixExp
 reluM (Matrix mat) =
-  (M (Matrix m))
+  (M m)
   where
     m = map(\x -> map(\x ->  relu' x) x) mat
 
 reluMf :: Matrixf -> MatrixExp
 reluMf (Matrixf mat) =
-  (Mf (Matrixf m))
+  (Mf m)
   where
     m = map(\x -> map(\x -> reluf' x) x) mat
 
 reluV :: Vector -> VectorExp
 reluV (Vector vec) =
-  (V (Vector v))
+  (V v)
   where
     v = map(\x ->  relu' x) vec
 
 reluVf :: Vectorf -> VectorExp
 reluVf (Vectorf vec) =
-  (Vf (Vectorf v))
+  (Vf v)
   where
     v = map(\x ->  reluf' x) vec
 
