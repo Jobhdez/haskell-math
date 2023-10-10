@@ -127,4 +127,7 @@ main = hspec $ do
     it "logsoftmax float test" $ do
       logsoftmax (Vectorf [3.2,4.5,2.1])`shouldBe` (Vectorf [-1.6098713,-0.30987138,-2.7098715])
 
+    it "relu float test" $ do
+      relu (Vectorf [3.2,4.5,2.1]) `shouldBe` (Vecf [3.2,4.5,2.1])
+
     
