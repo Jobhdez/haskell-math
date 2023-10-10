@@ -118,6 +118,8 @@ main = hspec $ do
     it "softmax test" $ do
       softmax (Vector [(-1), 0, 3, 5]) `shouldBe` (Vectorf [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043])     
 
+    it "softmax matrix float test" $ do
+      softmax2d (Matrixf [[2.3,-3.2,4.0],[2.3,-2.2,3.3]]) `shouldBe` (Matrixf [[0.15436782,6.30866e-4,0.84500134],[0.2681403,2.9787696e-3,0.72888094]])
     it "logsoftmax test" $ do
       logsoftmax (Vector [2,3,4,5,6]) `shouldBe` (Vectorf [-4.4519143,-3.4519143,-2.4519143,-1.4519143,-0.45191434])
 
