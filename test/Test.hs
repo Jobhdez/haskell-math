@@ -127,7 +127,12 @@ main = hspec $ do
     it "logsoftmax float test" $ do
       logsoftmax (Vectorf [3.2,4.5,2.1])`shouldBe` (Vectorf [-1.6098713,-0.30987138,-2.7098715])
 
-    it "relu float test" $ do
-      relu (Vectorf [3.2,4.5,2.1]) `shouldBe` (Vecf [3.2,4.5,2.1])
+    it "relu float vec test" $ do
+      relu (Vectorf [3.2,4.5,(-2.3)]) `shouldBe` (Vecf [3.2,4.5,0])
 
+    it "relu Int vec test" $ do
+      relu (Vector [2,3,(-3), (-4)]) `shouldBe` (Vec [2,3,0,0])
+
+    it "relu Float matrix test" $ do
+      relu2d (Matrixf [[2.3, (-3.2), 4], [2.3, (-2.2), 3.3]]) `shouldBe` (Matf [[2.3,0.0,4.0],[2.3,0.0,3.3]])
     
