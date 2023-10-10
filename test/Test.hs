@@ -116,7 +116,7 @@ main = hspec $ do
      
   describe "Neural networks" $ do
     it "softmax test" $ do
-      softmax' [(-1), 0, 3, 5] `shouldBe` [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043]
+      softmax (Vector [(-1), 0, 3, 5]) `shouldBe` (Vectorf [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043])
 
     it "logsoftmax test" $ do
-      logsoftmax' [2,3,4,5,6] `shouldBe` [-4.4519143,-3.4519143,-2.4519143,-1.4519143,-0.45191434]
+      logsoftmax (Vector [2,3,4,5,6]) `shouldBe` (Vectorf [-4.4519143,-3.4519143,-2.4519143,-1.4519143,-0.45191434])
