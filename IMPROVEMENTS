@@ -29,3 +29,5 @@ softmax2d
 [[Int]] -> [[Float]]     
 
 
+* Turn `Fraction.hs` into rational expressions, implement gcd and so on
+* add derivation and integration to the polynomial module
