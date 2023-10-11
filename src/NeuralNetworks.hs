@@ -149,7 +149,13 @@ sigmoid2d' (Matrix mat) =
   (Matrixf mat2)
   where
     mat2 = map (\x -> map (\x -> sigmoidfn x) x) mat
-    
+
+sigmoid2df' :: Matrixf -> Matrixf
+sigmoid2df' (Matrixf mat) =
+  (Matrixf mat2)
+  where
+    mat2 = map (\x -> map (\x -> sigmoidfnf x) x) mat
+
 sigmoidfn :: Int -> Float
 sigmoidfn n =
   (fromIntegral 1) / ((fromIntegral 1) + exp (- (fromIntegral n)))
