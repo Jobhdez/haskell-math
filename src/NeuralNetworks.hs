@@ -18,31 +18,37 @@ class NN a where
   softmax :: a -> Vectorf
   logsoftmax :: a -> Vectorf
   relu :: a -> VectorExp
+  sigmoid :: a -> Vectorf
 
 instance NN Vector where
   softmax = softmax'
   logsoftmax = logsoftmax'
   relu = reluV
+  sigmoid = sigmoid'
 
 instance NN Vectorf where
   softmax = softmaxf'
   logsoftmax = logsoftmaxf'
   relu = reluVf
+  sigmoid = sigmoidf'
 
 class NN2D a where
   softmax2d :: a -> Matrixf
   logsoftmax2d :: a -> Matrixf
   relu2d :: a -> MatrixExp
+  sigmoid2d :: a -> Matrixf
 
 instance NN2D Matrix where
   softmax2d = softmax2d'
   logsoftmax2d = logsoftmax2d'
   relu2d = reluM
+  sigmoid2d = sigmoid2d'
 
 instance NN2D Matrixf where
   softmax2d = softmaxf2d
   logsoftmax2d = logsoftmaxf2d
   relu2d = reluMf
+  sigmoid2d = sigmoid2df'
 
 softmax' :: Vector -> Vectorf
 softmax' (Vector vec) =
