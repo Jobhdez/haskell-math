@@ -151,4 +151,9 @@ main = hspec $ do
 
     it "relu Int matrix test" $ do
       relu2d (Matrix [[3,4,5,(-3), (-2)], [3,4,5,(-3), (-2)]]) `shouldBe` (Mat [[3,4,5,0,0],[3,4,5,0,0]])
-    
+
+    it "sigmoid element wise matrix Float test" $ do
+      sigmoid2d (Matrixf [[3.2,3.2,2.1], [3.2,3.2,2.1]]) `shouldBe` (Matrixf [[0.96083426,0.96083426,0.8909032],[0.96083426,0.96083426,0.8909032]])
+
+    it "sigmoid element wise matrix Int test" $ do
+      sigmoid2d (Matrix [[2,1,2,3], [3,4,5,6]]) `shouldBe` (Matrixf [[0.880797,0.7310586,0.880797,0.95257413],[0.95257413,0.98201376,0.9933072,0.9975274]])
