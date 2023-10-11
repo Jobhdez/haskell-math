@@ -131,3 +131,13 @@ relu' n = max 0 n
 
 reluf' :: Float -> Float
 reluf' n = max 0 n
+
+
+sigmoidfn :: Int -> Float
+sigmoidfn n =
+  (fromIntegral 1) / ((fromIntegral 1) + exp (- (fromIntegral n)))
+
+sigmoidfnf :: Float -> Float
+sigmoidfnf n =
+  (fromIntegral 1) /  ((fromIntegral 1) + exp (- n))
+  
