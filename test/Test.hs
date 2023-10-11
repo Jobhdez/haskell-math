@@ -157,3 +157,9 @@ main = hspec $ do
 
     it "sigmoid element wise matrix Int test" $ do
       sigmoid2d (Matrix [[2,1,2,3], [3,4,5,6]]) `shouldBe` (Matrixf [[0.880797,0.7310586,0.880797,0.95257413],[0.95257413,0.98201376,0.9933072,0.9975274]])
+
+    it "sigmoid element wise vector Int test" $ do
+      sigmoid (Vector [2,3,4]) `shouldBe` (Vectorf [0.880797,0.95257413,0.98201376])
+
+    it "sigmoid element wise vector float test" $ do
+      sigmoid (Vectorf [3.2,2.1,3.4,5.6]) `shouldBe` (Vectorf [0.96083426,0.8909032,0.9677046,0.9963158])
