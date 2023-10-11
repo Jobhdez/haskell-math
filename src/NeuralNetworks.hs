@@ -144,6 +144,12 @@ sigmoidf' (Vectorf v) =
   where
     v2 = map (\x -> sigmoidfnf x) v
 
+sigmoid2d' :: Matrix -> Matrixf
+sigmoid2d' (Matrix mat) =
+  (Matrixf mat2)
+  where
+    mat2 = map (\x -> map (\x -> sigmoidfn x) x) mat
+    
 sigmoidfn :: Int -> Float
 sigmoidfn n =
   (fromIntegral 1) / ((fromIntegral 1) + exp (- (fromIntegral n)))
