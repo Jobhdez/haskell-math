@@ -138,6 +138,12 @@ sigmoid' (Vector vec) =
  where
    v2 = map (\x -> sigmoidfn x) vec
 
+sigmoidf' :: Vectorf -> Vectorf
+sigmoidf' (Vectorf v) =
+  (Vectorf v2) 
+  where
+    v2 = map (\x -> sigmoidfnf x) v
+
 sigmoidfn :: Int -> Float
 sigmoidfn n =
   (fromIntegral 1) / ((fromIntegral 1) + exp (- (fromIntegral n)))
