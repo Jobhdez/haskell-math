@@ -132,6 +132,11 @@ relu' n = max 0 n
 reluf' :: Float -> Float
 reluf' n = max 0 n
 
+sigmoid' :: Vector -> Vectorf
+sigmoid' (Vector vec) =
+ (Vectorf v2)
+ where
+   v2 = map (\x -> sigmoidfn x) vec
 
 sigmoidfn :: Int -> Float
 sigmoidfn n =
