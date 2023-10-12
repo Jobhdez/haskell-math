@@ -169,3 +169,6 @@ main = hspec $ do
 
     it "tanh element wise matrix Float test" $ do
       NeuralNetworks.tanh2d (Matrixf [[1.2,3.5,3.2],[3.2,3.4,2.1]]) `shouldBe` (Matrixf [[0.83365464,0.9981779,0.9966824],[0.9966824,0.99777496,0.9704519]])
+
+    it "tanh element wise matrix Int test" $ do
+      NeuralNetworks.tanh2d (Matrix [[1,2,3],[4,5,6]]) `shouldBe` (Matrixf [[0.7615942,0.9640275,0.9950547],[0.9993293,0.9999091,0.9999877]])
