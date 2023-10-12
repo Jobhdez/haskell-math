@@ -181,7 +181,13 @@ tanhf' (Vectorf vec) =
   (Vectorf v)
   where
     v = map (\x -> tanhfnf x) vec
-  
+
+tanh2d' :: Matrix -> Matrixf
+tanh2d' (Matrix mat) =
+  (Matrixf m)
+  where
+    m = map (\x -> map (\x -> tanhfn x) x) mat
+
 tanhfn :: Int -> Float
 tanhfn n =
   ((exp (fromIntegral n)) - (exp (fromIntegral (- n)))) / ((exp (fromIntegral n)) + (exp (fromIntegral (- n))))
