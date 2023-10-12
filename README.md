@@ -41,6 +41,8 @@ just a simple toy math library to learn more about haskell.
 - relu2d
 - sigmoid
 - sigmoid2d
+- tanh
+- tanh2d
 
 ## Matrix-Vec
 - matrix-vec addition
