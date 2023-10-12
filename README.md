@@ -37,6 +37,10 @@ just a simple toy math library to learn more about haskell.
 - logsoftmax
 - softmax2d
 - logsoftmax2d
+- relu
+- relu2d
+- sigmoid
+- sigmoid2d
 
 ## Matrix-Vec
 - matrix-vec addition
