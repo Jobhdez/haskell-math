@@ -166,4 +166,6 @@ main = hspec $ do
 
     it "tanh element wise vector Float test" $ do
       NeuralNetworks.tanh (Vectorf [2.0, (- 0.4), 1.1, (- 2.0), (- 5.4)]) `shouldBe` (Vectorf [0.9640275,-0.379949,0.8004991,-0.9640275,-0.99995923])
-      
+
+    it "tanh element wise matrix Float test" $ do
+      NeuralNetworks.tanh2d (Matrixf [[1.2,3.5,3.2],[3.2,3.4,2.1]]) `shouldBe` (Matrixf [[0.83365464,0.9981779,0.9966824],[0.9966824,0.99777496,0.9704519]])
