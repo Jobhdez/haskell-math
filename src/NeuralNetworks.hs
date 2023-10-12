@@ -169,7 +169,23 @@ sigmoidfn n =
 sigmoidfnf :: Float -> Float
 sigmoidfnf n =
   (fromIntegral 1) /  ((fromIntegral 1) + exp (- n))
+
+tanh' :: Vector -> Vectorf
+tanh' (Vector vec) =
+  (Vectorf v)
+  where
+    v = map (\x -> tanhfn x) vec
+
+tanhf' :: Vectorf -> Vectorf
+tanhf' (Vectorf vec) =
+  (Vectorf v)
+  where
+    v = map (\x -> tanhfnf x) vec
   
 tanhfn :: Int -> Float
 tanhfn n =
-  exp (fromIntegral n) - exp (fromIntegral (- n)) / exp (fromIntegral n) + exp (fromIntegral (- n))
+  ((exp (fromIntegral n)) - (exp (fromIntegral (- n)))) / ((exp (fromIntegral n)) + (exp (fromIntegral (- n))))
+
+tanhfnf :: Float -> Float
+tanhfnf n =
+  ((exp n) - (exp (-n))) / ((exp n) + (exp (- n)))
