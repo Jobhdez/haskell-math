@@ -170,3 +170,6 @@ sigmoidfnf :: Float -> Float
 sigmoidfnf n =
   (fromIntegral 1) /  ((fromIntegral 1) + exp (- n))
   
+tanhfn :: Int -> Float
+tanhfn n =
+  exp (fromIntegral n) - exp (fromIntegral (- n)) / exp (fromIntegral n) + exp (fromIntegral (- n))
