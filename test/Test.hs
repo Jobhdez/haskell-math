@@ -163,3 +163,7 @@ main = hspec $ do
 
     it "sigmoid element wise vector float test" $ do
       sigmoid (Vectorf [3.2,2.1,3.4,5.6]) `shouldBe` (Vectorf [0.96083426,0.8909032,0.9677046,0.9963158])
+
+    it "tanh element wise vector Float test" $ do
+      NeuralNetworks.tanh (Vectorf [2.0, (- 0.4), 1.1, (- 2.0), (- 5.4)]) `shouldBe` (Vectorf [0.9640275,-0.379949,0.8004991,-0.9640275,-0.99995923])
+      
