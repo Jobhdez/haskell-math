@@ -188,6 +188,12 @@ tanh2d' (Matrix mat) =
   where
     m = map (\x -> map (\x -> tanhfn x) x) mat
 
+tanh2df' :: Matrixf -> Matrixf
+tanh2df' (Matrixf mat) =
+  (Matrixf m)
+  where
+    m = map (\x -> map (\x -> tanhfnf x) x) mat
+
 tanhfn :: Int -> Float
 tanhfn n =
   ((exp (fromIntegral n)) - (exp (fromIntegral (- n)))) / ((exp (fromIntegral n)) + (exp (fromIntegral (- n))))
