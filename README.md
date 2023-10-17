@@ -43,6 +43,7 @@ just a simple toy math library to learn more about haskell.
 - sigmoid2d
 - tanh
 - tanh2d
+- convolution
 
 ## Matrix-Vec
 - matrix-vec addition
