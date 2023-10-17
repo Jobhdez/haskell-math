@@ -1,6 +1,14 @@
 # haskell-math
 just a simple toy math library to learn more about haskell.
 
+# Installation
+```
+$ git clone git@github.com:Jobhdez/haskell-math.git
+```
+## Test
+```
+$ cabal test
+```
 # Functionality
 
 ## Matrix
@@ -93,9 +101,4 @@ $ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/
 $ lsof -i:8081
 $ kill $(lsof -t -i:8081)
 ```
-# Tests
-```
-$ cabal test
-```
 
-thanks
