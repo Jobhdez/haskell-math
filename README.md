@@ -1,5 +1,5 @@
-# haskell-Arith
-just a simple toy exercise to learn more about haskell.
+# haskell-math
+just a simple toy math library to learn more about haskell.
 
 # Functionality
 
@@ -21,7 +21,7 @@ just a simple toy exercise to learn more about haskell.
 - element wise power
 - element wise exponential
 - element wise log
-- element wise absolute value'
+- element wise absolute value
 - maximum
 - minimum
 
@@ -32,10 +32,17 @@ just a simple toy exercise to learn more about haskell.
 - lower triangular
 
 ## Neural Networks
-- 1D softmax
-- 1D logsoftmax
-- 2D softmax
-- 2D logsoftmax
+*Data Types supported*: `[Int]`, `[Float]`, `[[Int]]`, `[[Float]]`
+- softmax
+- logsoftmax
+- softmax2d
+- logsoftmax2d
+- relu
+- relu2d
+- sigmoid
+- sigmoid2d
+- tanh
+- tanh2d
 
 ## Matrix-Vec
 - matrix-vec addition

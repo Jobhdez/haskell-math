@@ -5,6 +5,8 @@ import Vector
 
 data Vectorf = Vectorf [Float] deriving (Show, Eq)
 data Matrixf = Matrixf [[Float]] deriving (Show, Eq)
+data VectorExp = Vec [Int] | Vecf [Float] deriving (Show, Eq)
+data MatrixExp = Mat [[Int]] | Matf [[Float]] deriving (Show, Eq)
 
 getVector :: Vector -> [Int]
 getVector (Vector vec) = vec
@@ -15,26 +17,44 @@ getVectorf (Vectorf vf) = vf
 class NN a where
   softmax :: a -> Vectorf
   logsoftmax :: a -> Vectorf
+  relu :: a -> VectorExp
+  sigmoid :: a -> Vectorf
+  tanh :: a -> Vectorf
 
 instance NN Vector where
   softmax = softmax'
   logsoftmax = logsoftmax'
+  relu = reluV
+  sigmoid = sigmoid'
+  tanh = tanh'
 
 instance NN Vectorf where
   softmax = softmaxf'
   logsoftmax = logsoftmaxf'
+  relu = reluVf
+  sigmoid = sigmoidf'
+  tanh = tanhf'
 
 class NN2D a where
   softmax2d :: a -> Matrixf
   logsoftmax2d :: a -> Matrixf
+  relu2d :: a -> MatrixExp
+  sigmoid2d :: a -> Matrixf
+  tanh2d :: a -> Matrixf
 
 instance NN2D Matrix where
   softmax2d = softmax2d'
   logsoftmax2d = logsoftmax2d'
+  relu2d = reluM
+  sigmoid2d = sigmoid2d'
+  tanh2d = tanh2d'
 
 instance NN2D Matrixf where
   softmax2d = softmaxf2d
   logsoftmax2d = logsoftmaxf2d
+  relu2d = reluMf
+  sigmoid2d = sigmoid2df'
+  tanh2d = tanh2df'
 
 softmax' :: Vector -> Vectorf
 softmax' (Vector vec) =
@@ -93,6 +113,7 @@ logsoftmaxf2d (Matrixf matrix) =
   where
     matf = map (\x -> (getVectorf (logsoftmaxf' (Vectorf x)))) matrix
 
+<<<<<<< HEAD
 convolve :: Vector -> Vector -> Vector
 convolve (Vector v) (Vector v2) =
   let len = length v - 1
@@ -103,3 +124,99 @@ convolve (Vector v) (Vector v2) =
 
 
  
+=======
+
+reluM :: Matrix -> MatrixExp
+reluM (Matrix mat) =
+  (Mat m)
+  where
+    m = map(\x -> map(\x ->  relu' x) x) mat
+
+reluMf :: Matrixf -> MatrixExp
+reluMf (Matrixf mat) =
+  (Matf m)
+  where
+    m = map(\x -> map(\x -> reluf' x) x) mat
+
+reluV :: Vector -> VectorExp
+reluV (Vector vec) =
+  (Vec v)
+  where
+    v = map(\x ->  relu' x) vec
+
+reluVf :: Vectorf -> VectorExp
+reluVf (Vectorf vec) =
+  (Vecf v)
+  where
+    v = map(\x ->  reluf' x) vec
+
+relu' :: Int -> Int
+relu' n = max 0 n
+
+reluf' :: Float -> Float
+reluf' n = max 0 n
+
+sigmoid' :: Vector -> Vectorf
+sigmoid' (Vector vec) =
+ (Vectorf v2)
+ where
+   v2 = map (\x -> sigmoidfn x) vec
+
+sigmoidf' :: Vectorf -> Vectorf
+sigmoidf' (Vectorf v) =
+  (Vectorf v2) 
+  where
+    v2 = map (\x -> sigmoidfnf x) v
+
+sigmoid2d' :: Matrix -> Matrixf
+sigmoid2d' (Matrix mat) =
+  (Matrixf mat2)
+  where
+    mat2 = map (\x -> map (\x -> sigmoidfn x) x) mat
+
+sigmoid2df' :: Matrixf -> Matrixf
+sigmoid2df' (Matrixf mat) =
+  (Matrixf mat2)
+  where
+    mat2 = map (\x -> map (\x -> sigmoidfnf x) x) mat
+
+sigmoidfn :: Int -> Float
+sigmoidfn n =
+  (fromIntegral 1) / ((fromIntegral 1) + exp (- (fromIntegral n)))
+
+sigmoidfnf :: Float -> Float
+sigmoidfnf n =
+  (fromIntegral 1) /  ((fromIntegral 1) + exp (- n))
+
+tanh' :: Vector -> Vectorf
+tanh' (Vector vec) =
+  (Vectorf v)
+  where
+    v = map (\x -> tanhfn x) vec
+
+tanhf' :: Vectorf -> Vectorf
+tanhf' (Vectorf vec) =
+  (Vectorf v)
+  where
+    v = map (\x -> tanhfnf x) vec
+
+tanh2d' :: Matrix -> Matrixf
+tanh2d' (Matrix mat) =
+  (Matrixf m)
+  where
+    m = map (\x -> map (\x -> tanhfn x) x) mat
+
+tanh2df' :: Matrixf -> Matrixf
+tanh2df' (Matrixf mat) =
+  (Matrixf m)
+  where
+    m = map (\x -> map (\x -> tanhfnf x) x) mat
+
+tanhfn :: Int -> Float
+tanhfn n =
+  ((exp (fromIntegral n)) - (exp (fromIntegral (- n)))) / ((exp (fromIntegral n)) + (exp (fromIntegral (- n))))
+
+tanhfnf :: Float -> Float
+tanhfnf n =
+  ((exp n) - (exp (-n))) / ((exp n) + (exp (- n)))
+>>>>>>> b81e45c70c8798ef2165a9ed41f17c2328c60b11

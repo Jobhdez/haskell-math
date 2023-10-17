@@ -115,8 +115,63 @@ main = hspec $ do
      mul (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 4 9)
      
   describe "Neural networks" $ do
-    it "softmax test" $ do
-      softmax' [(-1), 0, 3, 5] `shouldBe` [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043]
+    it "softmax vector int test" $ do
+      softmax (Vector [(-1), 0, 3, 5]) `shouldBe` (Vectorf [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043])
 
-    it "logsoftmax test" $ do
-      logsoftmax' [2,3,4,5,6] `shouldBe` [-4.4519143,-3.4519143,-2.4519143,-1.4519143,-0.45191434]
+    it "softmax vector float test" $ do
+      softmax (Vectorf [3.2,4.5,2.1]) `shouldBe` (Vectorf [0.19991335,0.7335413,6.654536e-2])
+
+    it "softmax matrix float test" $ do
+      softmax2d (Matrixf [[2.3,-3.2,4.0],[2.3,-2.2,3.3]]) `shouldBe` (Matrixf [[0.15436782,6.30866e-4,0.84500134],[0.2681403,2.9787696e-3,0.72888094]])
+
+    it "softmax matrix int test" $ do
+      softmax2d (Matrix [[3,4,5,-3,-2],[3,4,5,-3,-2]]) `shouldBe` (Matrixf [[8.995593e-2,0.24452557,0.6646894,2.2297844e-4,6.061183e-4],[8.995593e-2,0.24452557,0.6646894,2.2297844e-4,6.061183e-4]])
+      
+    it "logsoftmax vector test" $ do
+      logsoftmax (Vector [2,3,4,5,6]) `shouldBe` (Vectorf [-4.4519143,-3.4519143,-2.4519143,-1.4519143,-0.45191434])
+
+    it "logsoftmax matrix float test" $ do
+      logsoftmax2d (Matrixf [[2.3,-3.2,4.0],[2.3,-2.2,3.3]]) `shouldBe` (Matrixf [[-1.8684171,-7.3684173,-0.16841707],[-1.316245,-5.816245,-0.31624487]])
+
+    it "logsoftmax matrix int test" $ do
+      logsoftmax2d (Matrix [[3,4,5,-3,-2],[3,4,5,-3,-2]]) `shouldBe` (Matrixf [[-2.4084353,-1.4084355,-0.40843537,-8.408436,-7.4084353],[-2.4084353,-1.4084355,-0.40843537,-8.408436,-7.4084353]])
+
+
+    it "logsoftmax float test" $ do
+      logsoftmax (Vectorf [3.2,4.5,2.1])`shouldBe` (Vectorf [-1.6098713,-0.30987138,-2.7098715])
+
+    it "relu float vec test" $ do
+      relu (Vectorf [3.2,4.5,(-2.3)]) `shouldBe` (Vecf [3.2,4.5,0])
+
+    it "relu Int vec test" $ do
+      relu (Vector [2,3,(-3), (-4)]) `shouldBe` (Vec [2,3,0,0])
+
+    it "relu Float matrix test" $ do
+      relu2d (Matrixf [[2.3, (-3.2), 4], [2.3, (-2.2), 3.3]]) `shouldBe` (Matf [[2.3,0.0,4.0],[2.3,0.0,3.3]])
+
+    it "relu Int matrix test" $ do
+      relu2d (Matrix [[3,4,5,(-3), (-2)], [3,4,5,(-3), (-2)]]) `shouldBe` (Mat [[3,4,5,0,0],[3,4,5,0,0]])
+
+    it "sigmoid element wise matrix Float test" $ do
+      sigmoid2d (Matrixf [[3.2,3.2,2.1], [3.2,3.2,2.1]]) `shouldBe` (Matrixf [[0.96083426,0.96083426,0.8909032],[0.96083426,0.96083426,0.8909032]])
+
+    it "sigmoid element wise matrix Int test" $ do
+      sigmoid2d (Matrix [[2,1,2,3], [3,4,5,6]]) `shouldBe` (Matrixf [[0.880797,0.7310586,0.880797,0.95257413],[0.95257413,0.98201376,0.9933072,0.9975274]])
+
+    it "sigmoid element wise vector Int test" $ do
+      sigmoid (Vector [2,3,4]) `shouldBe` (Vectorf [0.880797,0.95257413,0.98201376])
+
+    it "sigmoid element wise vector float test" $ do
+      sigmoid (Vectorf [3.2,2.1,3.4,5.6]) `shouldBe` (Vectorf [0.96083426,0.8909032,0.9677046,0.9963158])
+
+    it "tanh element wise vector Float test" $ do
+      NeuralNetworks.tanh (Vectorf [2.0, (- 0.4), 1.1, (- 2.0), (- 5.4)]) `shouldBe` (Vectorf [0.9640275,-0.379949,0.8004991,-0.9640275,-0.99995923])
+
+    it "tanh element wise vector Int test" $ do
+      NeuralNetworks.tanh (Vector [2,4,5,6]) `shouldBe` (Vectorf [0.9640275,0.9993293,0.9999091,0.9999877])
+
+    it "tanh element wise matrix Float test" $ do
+      NeuralNetworks.tanh2d (Matrixf [[1.2,3.5,3.2],[3.2,3.4,2.1]]) `shouldBe` (Matrixf [[0.83365464,0.9981779,0.9966824],[0.9966824,0.99777496,0.9704519]])
+
+    it "tanh element wise matrix Int test" $ do
+      NeuralNetworks.tanh2d (Matrix [[1,2,3],[4,5,6]]) `shouldBe` (Matrixf [[0.7615942,0.9640275,0.9950547],[0.9993293,0.9999091,0.9999877]])
