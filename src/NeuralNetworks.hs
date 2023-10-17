@@ -218,4 +218,12 @@ convolve (Vector v) (Vector v2) =
   in
     (Vector v3)
 
+convolvef :: Vectorf -> Vectorf -> Vectorf
+convolvef (Vectorf v) (Vectorf v2) =
+  let len = length v - 1
+      t = length v + length v2 - 1
+      v3 = [sum [v !! j * (v2 !! (i - j)) | j <- [max 0 (i - len)..min i (length v2 - 1)]] | i <- [0..t-1]]
+  in
+    (Vectorf v3)
+
 
