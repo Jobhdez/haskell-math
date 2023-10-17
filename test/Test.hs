@@ -176,3 +176,6 @@ main = hspec $ do
 
     it "1d convolution for Ints" $ do
       NeuralNetworks.convolution (Vector [1,2,3]) (Vector [4,5,6]) `shouldBe` (Vector [4,13,28,27,18])
+
+    it "id Float convolution" $ do
+      NeuralNetworks.convolution (Vectorf [1.0, 2.0, 3.0]) (Vectorf [4.0, 5.0, 6.0]) `shouldBe` (Vectorf [4.0,13.0,28.0,27.0,18.0])
