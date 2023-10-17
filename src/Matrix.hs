@@ -1,12 +1,18 @@
 module Matrix where
 
-import ArithTypeClass
 import Data.List (transpose)
+import MatrixVectorClass
 
-instance ArithMathObject Matrix where
+instance MatrixVecMathObject Matrix where
   add = computeMatrices (+)
-  sub = computeMatrices (-)
-  mul = mulMatrices (*)
+  sub = computeMatrices(-)
+  mul = mulMatrices
+  pow = pow'
+  exponential = exponential'
+  logarithm = matLog
+  absolute = matAbs
+  maxim = maximumm
+  minim = minimumm
 
 
 data Matrix = Matrix [[Int]] deriving (Show, Eq)
@@ -18,8 +24,8 @@ computeMatrices fn (Matrix m1) (Matrix m2) =
     compute = zipWith (zipWith fn)
 
 
-mulMatrices :: (Int -> Int -> Int) -> (Matrix -> Matrix -> Matrix)
-mulMatrices fn (Matrix m1) (Matrix m2) =
+mulMatrices :: Matrix -> Matrix -> Matrix
+mulMatrices (Matrix m1) (Matrix m2) =
  let transposedMat = (Matrix (transpose m2)) in
    matmul (Matrix m1) transposedMat
 
@@ -49,19 +55,23 @@ vecMul (x:xs) (y:ys) =
     rest = vecMul xs ys
 
 
-pow :: Matrix -> Int -> Matrix
-pow (Matrix m1) int =
+pow' :: Matrix -> Int -> Matrix
+pow' (Matrix m1) int =
   (Matrix m2)
   where
     m2 = map (\x -> map (\x -> x ^ int) x) m1
 
-exponential :: Matrix -> [[Float]]
-exponential (Matrix m1) =
-  map (\x -> map (\x -> exp (fromIntegral x)) x) m1
+exponential' :: Matrix -> MatVecf
+exponential' (Matrix m1) =
+  (Mf m2)
+  where
+    m2 = map (\x -> map (\x -> exp (fromIntegral x)) x) m1
 
-matLog :: Matrix -> [[Float]]
+matLog :: Matrix -> MatVecf
 matLog (Matrix m1) =
-  map (\x -> map (\x -> log (fromIntegral x)) x) m1
+  (Mf m2)
+  where
+    m2 = map (\x -> map (\x -> log (fromIntegral x)) x) m1
 
 matAbs :: Matrix -> Matrix
 matAbs (Matrix m1) =

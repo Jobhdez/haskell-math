@@ -1,11 +1,17 @@
 module Vector where
 
-import ArithTypeClass
+import MatrixVectorClass
 
-instance ArithMathObject Vector where
+instance MatrixVecMathObject Vector where
   add = computeVectors (+)
   sub = computeVectors (-)
   mul = computeVectors (*)
+  pow = powv
+  exponential = exponentialv
+  logarithm = vecLog
+  absolute = vecAbs
+  maxim = maximumv
+  minim = minimumv
 
 
 data Vector = Vector [Int] deriving (Show, Eq)
@@ -21,14 +27,18 @@ powv (Vector v1) int =
   where
     v2 = map (\x -> x^int) v1
   
-exponentialv :: Vector -> [Float]
+exponentialv :: Vector -> MatVecf
 exponentialv (Vector v1) =
-  map (\x -> exp (fromIntegral x)) v1
+  (Vf v2)
+  where
+    v2 = map (\x -> exp (fromIntegral x)) v1
 
 
-vecLog :: Vector -> [Float]
+vecLog :: Vector -> MatVecf
 vecLog (Vector v1) =
-  map (\x -> log (fromIntegral x)) v1
+  (Vf v2)
+  where
+    v2 = map (\x -> Prelude.log (fromIntegral x)) v1
 
 
 dotP :: Vector -> Vector -> Int
@@ -45,7 +55,7 @@ sumElements (Vector v1) =
 vecAbs :: Vector -> Vector
 vecAbs (Vector v) =
   (Vector v2) where
-  v2 = map (\x -> abs x) v
+  v2 = map (\x -> Prelude.abs x) v
 
 maximumv :: Vector -> Vector -> Vector
 maximumv (Vector v1) (Vector v2) =
