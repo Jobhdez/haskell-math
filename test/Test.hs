@@ -173,3 +173,6 @@ main = hspec $ do
 
     it "tanh element wise matrix Int test" $ do
       NeuralNetworks.tanh2d (Matrix [[1,2,3],[4,5,6]]) `shouldBe` (Matrixf [[0.7615942,0.9640275,0.9950547],[0.9993293,0.9999091,0.9999877]])
+
+    it "1d convolution for Ints" $ do
+      NeuralNetworks.convolution (Vector [1,2,3]) (Vector [4,5,6]) `shouldBe` (Vector [4,13,28,27,18])
