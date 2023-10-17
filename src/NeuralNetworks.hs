@@ -20,6 +20,7 @@ class NN a where
   relu :: a -> VectorExp
   sigmoid :: a -> Vectorf
   tanh :: a -> Vectorf
+  convolution :: a -> a -> a
 
 instance NN Vector where
   softmax = softmax'
@@ -27,6 +28,7 @@ instance NN Vector where
   relu = reluV
   sigmoid = sigmoid'
   tanh = tanh'
+  convolution = convolve
 
 instance NN Vectorf where
   softmax = softmaxf'
@@ -34,6 +36,7 @@ instance NN Vectorf where
   relu = reluVf
   sigmoid = sigmoidf'
   tanh = tanhf'
+  convolution = convolvef
 
 class NN2D a where
   softmax2d :: a -> Matrixf
