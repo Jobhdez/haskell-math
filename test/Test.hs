@@ -2,7 +2,7 @@ module Main where
 
 import Test.Hspec
 import LinearAlgebra
-import ArithTypeClass
+import MatrixVectorClass
 import Matrix
 import Vector
 import MatrixVec
@@ -39,19 +39,19 @@ main = hspec $ do
       pow (Matrix [[2,3,4],[4,5,6]]) 3 `shouldBe` (Matrix [[8,27,64],[64,125,216]])
       
     it "test matrix exponential" $ do
-      exponential (Matrix [[2,3,4],[4,5,6]]) `shouldBe` [[7.389056,20.085537,54.59815],[54.59815,148.41316,403.4288]]
+      exponential (Matrix [[2,3,4],[4,5,6]]) `shouldBe` (Mf [[7.389056,20.085537,54.59815],[54.59815,148.41316,403.4288]])
       
     it "test matrix log" $ do
-      matLog (Matrix [[2,3,4],[4,5,6]]) `shouldBe` [[0.6931472,1.0986123,1.3862944],[1.3862944,1.609438,1.7917595]]
+      logarithm (Matrix [[2,3,4],[4,5,6]]) `shouldBe` (Mf [[0.6931472,1.0986123,1.3862944],[1.3862944,1.609438,1.7917595]])
 
     it "test matrix element wise absolute value" $ do
-      matAbs (Matrix [[(-2),3, (-4)], [5, (-6), (-7)]]) `shouldBe` (Matrix [[2,3,4],[5,6,7]])
+      absolute (Matrix [[(-2),3, (-4)], [5, (-6), (-7)]]) `shouldBe` (Matrix [[2,3,4],[5,6,7]])
 
     it "test matrix maximum" $ do
-       maximumm (Matrix [[1,1,1,1], [2,2,2,2]]) (Matrix [[2,2,2,2], [3,3,3,3]]) `shouldBe` (Matrix [[2,2,2,2],[3,3,3,3]])
+       maxim (Matrix [[1,1,1,1], [2,2,2,2]]) (Matrix [[2,2,2,2], [3,3,3,3]]) `shouldBe` (Matrix [[2,2,2,2],[3,3,3,3]])
 
     it "test matrix minimum" $ do
-      minimumm (Matrix [[3,3,3,3],[4,5,6,7]]) (Matrix [[2,2,2,2],[2,2,2,2]]) `shouldBe` (Matrix [[2,2,2,2],[2,2,2,2]])
+      minim(Matrix [[3,3,3,3],[4,5,6,7]]) (Matrix [[2,2,2,2],[2,2,2,2]]) `shouldBe` (Matrix [[2,2,2,2],[2,2,2,2]])
 
   describe "Vector addition" $ do
     it "test vector addition" $ do
@@ -64,25 +64,25 @@ main = hspec $ do
       mul (Vector [2,3,4]) (Vector [2,3,4]) `shouldBe` (Vector [4, 9, 16])
 
     it "test vector power" $ do
-      powv (Vector [2,3,4,5]) 2 `shouldBe` (Vector [4,9,16,25])
+      pow (Vector [2,3,4,5]) 2 `shouldBe` (Vector [4,9,16,25])
 
     it "test vector exponential" $ do
-      exponentialv (Vector [2,3,4,5]) `shouldBe` [7.389056,20.085537,54.59815,148.41316]
+      exponential (Vector [2,3,4,5]) `shouldBe` (Vf [7.389056,20.085537,54.59815,148.41316])
 
     it "test vector log" $ do
-      vecLog (Vector [2,3,4,5]) `shouldBe` [0.6931472,1.0986123,1.3862944,1.609438]
+      logarithm (Vector [2,3,4,5]) `shouldBe` (Vf [0.6931472,1.0986123,1.3862944,1.609438])
 
     it "test dot product" $ do
       dotP (Vector [3,4,5,6]) (Vector [5,6,7,8]) `shouldBe` 122
 
     it "test element wise absolute value" $ do
-      vecAbs (Vector [(-3), 4, (-4)]) `shouldBe` (Vector [3,4,4])
+      absolute (Vector [(-3), 4, (-4)]) `shouldBe` (Vector [3,4,4])
 
     it  "test vector maximum" $ do
-      maximumv (Vector [2,3,4,5]) (Vector [1,2,5,6]) `shouldBe` (Vector [2,3,5,6])
+      maxim (Vector [2,3,4,5]) (Vector [1,2,5,6]) `shouldBe` (Vector [2,3,5,6])
 
     it "test vector minimum" $ do
-      minimumv (Vector [3,4,5]) (Vector [2,1,2]) `shouldBe` (Vector [2,1,2])
+      minim (Vector [3,4,5]) (Vector [2,1,2]) `shouldBe` (Vector [2,1,2])
 
   describe "Vector-Matrix arithmetic" $ do
     it "test vector-matrix addition" $ do
@@ -96,22 +96,22 @@ main = hspec $ do
       
   describe "Polynomial arithmetic" $ do
     it "Polynomial addition" $ do
-      add (Polynomial [3,4,5]) (Polynomial [2,3,2]) `shouldBe` (Polynomial [5,7,7])
+      addPolynomials (Polynomial [3,4,5]) (Polynomial [2,3,2]) `shouldBe` (Polynomial [5,7,7])
 
-      sub (Polynomial [5,4,3,2]) (Polynomial [2,2,2,2]) `shouldBe` (Polynomial [3,2,1,0])
+      subPolynomials (Polynomial [5,4,3,2]) (Polynomial [2,2,2,2]) `shouldBe` (Polynomial [3,2,1,0])
 
-      mul (Polynomial [3,4,5]) (Polynomial [6,8,10]) `shouldBe` (Polynomial [18,24,30,24,32,40,30,40,50])
-
+      mulPolynomials (Polynomial [3,4,5]) (Polynomial [6,8,10]) `shouldBe` (Polynomial [18,24,30,24,32,40,30,40,50])
+      
   describe "Fraction arithmetic" $ do
     it "fraction addition" $ do
-      add (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 12 9)
+      addFractions (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 12 9)
 
     it "fraction subtraction" $ do
-     sub (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 0 9)
+     subFractions (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 0 9)
 
     it "fraction addition" $ do
-     mul (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 4 9)
-     
+     mulFractions (Fraction 2 3) (Fraction 2 3) `shouldBe` (Fraction 4 9)
+  
   describe "Neural networks" $ do
     it "softmax vector int test" $ do
       softmax (Vector [(-1), 0, 3, 5]) `shouldBe` (Vectorf [2.1656966e-3,5.8869733e-3,0.11824302,0.8737043])
