@@ -113,18 +113,6 @@ logsoftmaxf2d (Matrixf matrix) =
   where
     matf = map (\x -> (getVectorf (logsoftmaxf' (Vectorf x)))) matrix
 
-<<<<<<< HEAD
-convolve :: Vector -> Vector -> Vector
-convolve (Vector v) (Vector v2) =
-  let len = length v - 1
-      t = length v + length v2 - 1
-      v3 = [sum [v !! j * (v2 !! (i - j)) | j <- [max 0 (i - len)..min i (length v2 - 1)]] | i <- [0..t-1]]
-  in
-    (Vector v3)
-
-
- 
-=======
 
 reluM :: Matrix -> MatrixExp
 reluM (Matrix mat) =
@@ -219,4 +207,15 @@ tanhfn n =
 tanhfnf :: Float -> Float
 tanhfnf n =
   ((exp n) - (exp (-n))) / ((exp n) + (exp (- n)))
->>>>>>> b81e45c70c8798ef2165a9ed41f17c2328c60b11
+
+
+
+convolve :: Vector -> Vector -> Vector
+convolve (Vector v) (Vector v2) =
+  let len = length v - 1
+      t = length v + length v2 - 1
+      v3 = [sum [v !! j * (v2 !! (i - j)) | j <- [max 0 (i - len)..min i (length v2 - 1)]] | i <- [0..t-1]]
+  in
+    (Vector v3)
+
+
