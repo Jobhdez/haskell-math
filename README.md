@@ -1,5 +1,5 @@
 # haskell-math
-just a simple toy math library to learn more about haskell.
+some math :-)
 
 # Installation
 ```
