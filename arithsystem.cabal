@@ -68,8 +68,8 @@ library
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.16.4.0
-                    , servant-server == 0.19.1
+    build-depends:    base 
+                    , servant-server 
                     , servant
                     , aeson
                     , attoparsec
@@ -108,9 +108,9 @@ executable haskell-Arith
            main-is: Main.hs
            other-modules: LinearAlgebra
            build-depends:
-             base ^>=4.16.4.0,
-             arithsystem
-             , servant-server == 0.19.1
+             base
+             , arithsystem
+             , servant-server 
                     , servant
                     , aeson
                     , attoparsec
@@ -165,7 +165,7 @@ test-suite test
 
     -- Test dependencies.
     build-depends:
-        base ^>=4.16.4.0,
+        base, 
         arithsystem,
-        hspec ^>= 2.7.4,
-        QuickCheck > 2.14,
+        hspec, 
+        QuickCheck 

@@ -33,7 +33,7 @@ import System.Directory
 import Text.Blaze
 import Text.Blaze.Html.Renderer.Utf8
 import Servant.Types.SourceT (source)
-import qualified Data.Aeson.Parser
+--import qualified Data.Aeson.Parser
 import qualified Text.Blaze.Html
 
 import LinearAlgebra (
