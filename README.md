@@ -1,15 +1,52 @@
-# haskell-math
-some math :-)
+# Mathy
+A math web service written in Haskell
 
 # Installation
 ```
 $ git clone git@github.com:Jobhdez/haskell-math.git
 ```
-## Test
+
+# Running the api
+```
+* cabal build
+* cabal run haskell-Arith
+```
+
+## Examples
+
+```
+$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/det
+{"exp":-3}
+
+$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matTrace
+{"traceExp":15}
+
+$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matUpTriangular
+{
+    "expr": [
+        [2, 3, 4],
+        [0, 3, 7],
+        [0, 0, 7]
+    ]
+}
+
+$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matLowTriangular
+{
+    "expr": [
+        [2, 0, 0],
+        [4, 3, 0],
+        [5, 4, 7]
+    ]
+}
+```
+
+# Running the tests
+
 ```
 $ cabal test
 ```
-# Functionality
+
+# Math supported
 
 ## Matrix
 - addition
@@ -68,35 +105,8 @@ $ cabal test
 - subtraction
 - multiplication
 
-# API
 ```
-$ cabal run haskell-Arith
-
-$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/det
-{"exp":-3}
-
-$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matTrace
-{"traceExp":15}
-
-$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matUpTriangular
-{
-    "expr": [
-        [2, 3, 4],
-        [0, 3, 7],
-        [0, 0, 7]
-    ]
-}
-
-$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matLowTriangular
-{
-    "expr": [
-        [2, 0, 0],
-        [4, 3, 0],
-        [5, 4, 7]
-    ]
-}
-```
-## Troubleshoot
+# Troubleshoot
 ```
 $ lsof -i:8081
 $ kill $(lsof -t -i:8081)
