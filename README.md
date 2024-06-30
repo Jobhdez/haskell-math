@@ -105,7 +105,6 @@ $ cabal test
 - subtraction
 - multiplication
 
-```
 # Troubleshoot
 ```
 $ lsof -i:8081
