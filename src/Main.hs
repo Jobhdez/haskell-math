@@ -1,7 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
@@ -15,6 +14,12 @@ import Prelude.Compat
 
 import Control.Monad.Except
 import Control.Monad.Reader
+import Control.Concurrent
+import Control.Exception
+import Control.Monad.IO.Class
+import Data.Pool
+import Database.PostgreSQL.Simple
+import Database.PostgreSQL.Simple.FromRow
 import Data.Aeson
 import Data.Aeson.Types
 import Data.Attoparsec.ByteString
@@ -43,19 +48,28 @@ import LinearAlgebra (
   lowerTriangular
   )
 
-type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo :<|> "matLowTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
+type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
+      :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
+      :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
+      :<|> "matLowTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
+      :<|> "exps" :> Get '[JSON] [ExpRecord]
 
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
-  } deriving Generic
+  } deriving (Generic, Show)
 
 data DeterminantResponse = DeterminantResponse {
   exp :: Int
-  } deriving Generic
+  } deriving (Generic, Show)
 
 data TraceResponse = TraceResponse {
   traceExp :: Int
-  } deriving Generic
+  } deriving (Generic, Show)
+
+data ExpRecord = ExpRecord {
+  input :: Value,
+  result :: Value
+  } deriving (Generic, Show)
 
 instance FromJSON ExprInfo
 instance ToJSON ExprInfo
@@ -64,6 +78,28 @@ instance ToJSON DeterminantResponse
 
 instance ToJSON TraceResponse
 
+instance ToJSON ExpRecord
+instance FromJSON ExpRecord
+
+instance FromRow ExpRecord where
+  fromRow = ExpRecord <$> field <*> field
+
+connectionInfo :: ConnectInfo
+connectionInfo =
+  defaultConnectInfo { connectHost = "127.0.0.1",
+                       connectPort = 5432,
+                       connectUser = "haskell",
+                       connectPassword = "hello123",
+                       connectDatabase= "haskell"
+                     }
+
+initDB :: ConnectInfo -> IO ()
+initDB conn = bracket (connect conn) close $ \con -> do
+  _ <- execute_ con "CREATE TABLE IF NOT EXISTS exps (input JSONB, result JSONB)"
+  return ()
+
+myPool :: IO (Pool Connection)
+myPool = createPool (connect connectionInfo) close 1 10 10
 
 exprForClient :: ExprInfo -> DeterminantResponse
 exprForClient e = DeterminantResponse exp' where
@@ -81,29 +117,55 @@ lowTriangularForClient :: ExprInfo -> ExprInfo
 lowTriangularForClient e = ExprInfo exp' where
   exp' = lowerTriangular (expr e)
   
-lAlgServer :: Server API
-lAlgServer = det
+lAlgServer :: Pool Connection -> Server API
+lAlgServer pool = det
   :<|> matTrace
   :<|> matUpTriangular
   :<|> matLowTriangular
+  :<|> getExps
   where
-  det :: ExprInfo -> Handler DeterminantResponse
-  det clientInfo = return (exprForClient clientInfo)
+  det :: ExprInfo -> Servant.Handler DeterminantResponse
+  det clientInfo = do
+    let result = exprForClient clientInfo
+    liftIO $ withResource pool $ \conn ->
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+    return result
 
-  matTrace :: ExprInfo -> Handler TraceResponse
-  matTrace clientInfo = return (traceForClient clientInfo)
+  matTrace :: ExprInfo -> Servant.Handler TraceResponse
+  matTrace clientInfo = do
+    let result = traceForClient clientInfo
+    liftIO $ withResource pool $ \conn ->
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+    return result
 
-  matUpTriangular :: ExprInfo -> Handler ExprInfo
-  matUpTriangular clientInfo = return (upTriangularForClient clientInfo)
+  matUpTriangular :: ExprInfo -> Servant.Handler ExprInfo
+  matUpTriangular clientInfo = do
+    let result = upTriangularForClient clientInfo
+    liftIO $ withResource pool $ \conn ->
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+    return result
 
-  matLowTriangular :: ExprInfo -> Handler ExprInfo
-  matLowTriangular clientInfo = return (lowTriangularForClient clientInfo)
+  matLowTriangular :: ExprInfo -> Servant.Handler ExprInfo
+  matLowTriangular clientInfo = do
+    let result = lowTriangularForClient clientInfo
+    liftIO $ withResource pool $ \conn ->
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+    return result
+
+  getExps :: Servant.Handler [ExpRecord]
+  getExps = do
+    exps <- liftIO $ withResource pool $ \conn ->
+      query_ conn "SELECT input, result FROM exps"
+    return exps
 
 userAPI :: Proxy API
 userAPI = Proxy
 
-app1 :: Application
-app1 = serve userAPI lAlgServer
+app1 :: Pool Connection -> Application
+app1 pool = serve userAPI (lAlgServer pool)
 
 main :: IO ()
-main = run 8081 app1
+main = do
+  pool <- myPool
+  initDB connectionInfo
+  run 8081 (app1 pool)
