@@ -59,7 +59,7 @@ data ExprInfo = ExprInfo {
   } deriving (Generic, Show)
 
 data DeterminantResponse = DeterminantResponse {
-  exp :: Int
+  detexp :: Int
   } deriving (Generic, Show)
 
 data TraceResponse = TraceResponse {
@@ -128,28 +128,28 @@ lAlgServer pool = det
   det clientInfo = do
     let result = exprForClient clientInfo
     liftIO $ withResource pool $ \conn ->
-      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON (expr clientInfo), toJSON (detexp result))
     return result
 
   matTrace :: ExprInfo -> Servant.Handler TraceResponse
   matTrace clientInfo = do
     let result = traceForClient clientInfo
     liftIO $ withResource pool $ \conn ->
-      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON (expr clientInfo), toJSON (traceExp result))
     return result
 
   matUpTriangular :: ExprInfo -> Servant.Handler ExprInfo
   matUpTriangular clientInfo = do
     let result = upTriangularForClient clientInfo
     liftIO $ withResource pool $ \conn ->
-      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON (expr clientInfo), toJSON (expr result))
     return result
 
   matLowTriangular :: ExprInfo -> Servant.Handler ExprInfo
   matLowTriangular clientInfo = do
     let result = lowTriangularForClient clientInfo
     liftIO $ withResource pool $ \conn ->
-      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON clientInfo, toJSON result)
+      execute conn "INSERT INTO exps (input, result) VALUES (?, ?)" (toJSON (expr clientInfo), toJSON (expr result))
     return result
 
   getExps :: Servant.Handler [ExpRecord]
