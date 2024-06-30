@@ -3,7 +3,7 @@ A math web service written in Haskell
 
 # Installation
 ```
-$ git clone git@github.com:Jobhdez/haskell-math.git
+* git clone git@github.com:Jobhdez/mathy-webservice.git
 ```
 
 # Running the api
