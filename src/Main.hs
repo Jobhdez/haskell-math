@@ -89,14 +89,14 @@ connectionInfo :: ConnectInfo
 connectionInfo =
   defaultConnectInfo { connectHost = "127.0.0.1",
                        connectPort = 5432,
-                       connectUser = "haskell",
+                       connectUser = "haskell2",
                        connectPassword = "hello123",
-                       connectDatabase= "haskell"
+                       connectDatabase= "haskell2"
                      }
 
 initDB :: ConnectInfo -> IO ()
 initDB conn = bracket (connect conn) close $ \con -> do
-  _ <- execute_ con "CREATE TABLE IF NOT EXISTS exps (input JSONB, result JSONB)"
+  _ <- execute_ con "CREATE TABLE IF NOT EXISTS exps (id SERIAL, input JSONB, result JSONB)"
   return ()
 
 myPool :: IO (Pool Connection)
