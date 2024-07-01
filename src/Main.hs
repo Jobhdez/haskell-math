@@ -47,7 +47,11 @@ import LinearAlgebra (
   upperTriangular,
   lowerTriangular
   )
-
+import MatrixVectorClass (
+  add)
+import Matrix (
+  Matrix(..)
+  )
 type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
       :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
       :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
@@ -55,7 +59,12 @@ type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
       :<|> "exps" :> Get '[JSON] [ExpRecord]
       :<|> "exp" :> Capture "id" Int :> Get '[JSON] ExpRecord
       :<|> "exp" :> Capture "id" Int :> Delete '[JSON] ()
+      :<|> "api" :> "matrix" :> "addition" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
 
+data MatrixArith = MatrixArith {
+  mexp :: [[Int]],
+  mexp2 :: [[Int]]
+  } deriving (Generic, Show)
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
   } deriving (Generic, Show)
@@ -76,6 +85,7 @@ data ExpRecord = ExpRecord {
 instance FromJSON ExprInfo
 instance ToJSON ExprInfo
 
+instance FromJSON MatrixArith
 instance ToJSON DeterminantResponse
 
 instance ToJSON TraceResponse
@@ -100,6 +110,8 @@ initDB conn = bracket (connect conn) close $ \con -> do
   _ <- execute_ con "CREATE TABLE IF NOT EXISTS exps (id SERIAL, input JSONB, result JSONB)"
   return ()
 
+
+
 myPool :: IO (Pool Connection)
 myPool = createPool (connect connectionInfo) close 1 10 10
 
@@ -118,7 +130,17 @@ upTriangularForClient e = ExprInfo exp' where
 lowTriangularForClient :: ExprInfo -> ExprInfo
 lowTriangularForClient e = ExprInfo exp' where
   exp' = lowerTriangular (expr e)
-  
+
+addForClient :: MatrixArith -> ExprInfo
+addForClient e =
+  ExprInfo (getData exp')
+  where
+    exp' = add (Matrix (mexp e)) (Matrix (mexp2 e))
+
+--utils
+getData :: Matrix -> [[Int]]
+getData (Matrix d) = d
+
 lAlgServer :: Pool Connection -> Server API
 lAlgServer pool = det
   :<|> matTrace
@@ -127,6 +149,7 @@ lAlgServer pool = det
   :<|> getExps
   :<|> mathyExpGETById
   :<|> mathyExpDELETE
+  :<|> additionPOST
   where
   det :: ExprInfo -> Servant.Handler DeterminantResponse
   det clientInfo = do
@@ -175,7 +198,14 @@ lAlgServer pool = det
     liftIO $ withResource pool $ \conn ->
       execute conn "DELETE FROM exps WHERE id = ?" (Only id)
     return ()
-      
+
+  additionPOST :: MatrixArith -> Servant.Handler ExprInfo
+  additionPOST  mat = do
+    let result = addForClient mat
+    liftIO $ withResource pool $ \conn ->
+      execute conn "INSERT INTO matrix_exps (input, input2, result) VALUES (?, ?, ?)" (toJSON (mexp mat), toJSON (mexp2 mat), toJSON (expr result))
+    return result
+
 userAPI :: Proxy API
 userAPI = Proxy
 
