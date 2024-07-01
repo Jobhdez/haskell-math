@@ -53,7 +53,8 @@ type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
       :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
       :<|> "matLowTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
       :<|> "exps" :> Get '[JSON] [ExpRecord]
-      :<|> "mexp" :> Capture "id" Int :> Get '[JSON] ExpRecord
+      :<|> "exp" :> Capture "id" Int :> Get '[JSON] ExpRecord
+      :<|> "exp" :> Capture "id" Int :> Delete '[JSON] ()
 
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
@@ -124,7 +125,8 @@ lAlgServer pool = det
   :<|> matUpTriangular
   :<|> matLowTriangular
   :<|> getExps
-  :<|> mexp
+  :<|> mathyExpGETById
+  :<|> mathyExpDELETE
   where
   det :: ExprInfo -> Servant.Handler DeterminantResponse
   det clientInfo = do
@@ -160,14 +162,20 @@ lAlgServer pool = det
       query_ conn "SELECT input, result FROM exps"
     return exps
 
-  mexp :: Int -> Servant.Handler ExpRecord
-  mexp id = do
+  mathyExpGETById :: Int -> Servant.Handler ExpRecord
+  mathyExpGETById id = do
     me <- liftIO $ withResource pool $ \conn ->
       query conn "SELECT input, result FROM exps WHERE id=?" (Only id)
     case me of
       [expRecord] -> return expRecord
       _           -> throwError err404
 
+  mathyExpDELETE :: Int -> Servant.Handler ()
+  mathyExpDELETE id = do
+    liftIO $ withResource pool $ \conn ->
+      execute conn "DELETE FROM exps WHERE id = ?" (Only id)
+    return ()
+      
 userAPI :: Proxy API
 userAPI = Proxy
 
