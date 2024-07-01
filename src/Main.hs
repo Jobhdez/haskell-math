@@ -52,13 +52,13 @@ import MatrixVectorClass (
 import Matrix (
   Matrix(..)
   )
-type API = "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
-      :<|> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
-      :<|> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
-      :<|> "matLowTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
-      :<|> "exps" :> Get '[JSON] [ExpRecord]
-      :<|> "exp" :> Capture "id" Int :> Get '[JSON] ExpRecord
-      :<|> "exp" :> Capture "id" Int :> Delete '[JSON] ()
+type API = "api" :> "matrix" :> "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
+      :<|> "api" :> "matrix" :> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
+      :<|> "api" :> "matrix" :> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
+      :<|> "api" :> "matrix" :> "matLowTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
+      :<|> "api" :> "matrix" :> "exps" :> Get '[JSON] [ExpRecord]
+      :<|> "api" :> "matrix" :> "exp" :> Capture "id" Int :> Get '[JSON] ExpRecord
+      :<|> "api" :> "matrix" :> "exp" :> Capture "id" Int :> Delete '[JSON] ()
       :<|> "api" :> "matrix" :> "addition" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
 
 data MatrixArith = MatrixArith {
