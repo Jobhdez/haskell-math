@@ -38,6 +38,9 @@ $ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/
         [5, 4, 7]
     ]
 }
+
+$ url -X POST -d '{"mexp": [[2,3,4],[4,6,7],[5,6,7]], "mexp2": [[1,1,1],[1,1,1],[1,1,1]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/api/matrix/addition
+
 ```
 
 # Running the tests
