@@ -15,13 +15,13 @@ A math web service written in Haskell
 ## Examples
 
 ```
-$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/det
+$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/api/matrix/det
 {"exp":-3}
 
-$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matTrace
+$ curl -X POST -d '{"expr": [[2,3,4],[4,6,7],[5,6,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/api/matrix/matTrace
 {"traceExp":15}
 
-$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matUpTriangular
+$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/api/matrix/matUpTriangular
 {
     "expr": [
         [2, 3, 4],
@@ -30,7 +30,7 @@ $ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/
     ]
 }
 
-$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/matLowTriangular
+$ curl -X POST -d '{"expr": [[2,3,4],[4,3,7],[5,4,7]]}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8081/api/matrix/matLowTriangular
 {
     "expr": [
         [2, 0, 0],
