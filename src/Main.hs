@@ -137,7 +137,6 @@ addForClient e =
   where
     exp' = add (Matrix (mexp e)) (Matrix (mexp2 e))
 
---utils
 getData :: Matrix -> [[Int]]
 getData (Matrix d) = d
 
