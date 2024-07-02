@@ -145,7 +145,6 @@ subForClient e =
   where
     exp' = sub (Matrix (mexp e)) (Matrix (mexp2 e))
 
---utils
 getData :: Matrix -> [[Int]]
 getData (Matrix d) = d
 
