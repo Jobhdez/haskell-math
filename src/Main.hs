@@ -48,7 +48,8 @@ import LinearAlgebra (
   lowerTriangular
   )
 import MatrixVectorClass (
-  add)
+  add,
+  sub)
 import Matrix (
   Matrix(..)
   )
@@ -60,6 +61,7 @@ type API = "api" :> "matrix" :> "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON
       :<|> "api" :> "matrix" :> "exp" :> Capture "id" Int :> Get '[JSON] ExpRecord
       :<|> "api" :> "matrix" :> "exp" :> Capture "id" Int :> Delete '[JSON] ()
       :<|> "api" :> "matrix" :> "addition" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
+      :<|> "api" :> "matrix" :> "subtraction" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
 
 data MatrixArith = MatrixArith {
   mexp :: [[Int]],
@@ -137,6 +139,12 @@ addForClient e =
   where
     exp' = add (Matrix (mexp e)) (Matrix (mexp2 e))
 
+subForClient :: MatrixArith -> ExprInfo
+subForClient e =
+  ExprInfo (getData exp')
+  where
+    exp' = sub (Matrix (mexp e)) (Matrix (mexp2 e))
+
 --utils
 getData :: Matrix -> [[Int]]
 getData (Matrix d) = d
@@ -150,6 +158,7 @@ lAlgServer pool = det
   :<|> mathyExpGETById
   :<|> mathyExpDELETE
   :<|> additionPOST
+  :<|> subtractionPOST
   where
   det :: ExprInfo -> Servant.Handler DeterminantResponse
   det clientInfo = do
@@ -202,6 +211,13 @@ lAlgServer pool = det
   additionPOST :: MatrixArith -> Servant.Handler ExprInfo
   additionPOST  mat = do
     let result = addForClient mat
+    liftIO $ withResource pool $ \conn ->
+      execute conn "INSERT INTO matrix_exps (input, input2, result) VALUES (?, ?, ?)" (toJSON (mexp mat), toJSON (mexp2 mat), toJSON (expr result))
+    return result
+
+  subtractionPOST :: MatrixArith -> Servant.Handler ExprInfo
+  subtractionPOST  mat = do
+    let result = subForClient mat
     liftIO $ withResource pool $ \conn ->
       execute conn "INSERT INTO matrix_exps (input, input2, result) VALUES (?, ?, ?)" (toJSON (mexp mat), toJSON (mexp2 mat), toJSON (expr result))
     return result
