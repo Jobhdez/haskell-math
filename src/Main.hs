@@ -61,10 +61,10 @@ type API = "api" :> "matrix" :> "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON
       :<|> "api" :> "matrix" :> "exps" :> Get '[JSON] [ExpRecord]
       :<|> "api" :> "matrix" :> "exp" :> Capture "id" Int :> Get '[JSON] ExpRecord
       :<|> "api" :> "matrix" :> "exp" :> Capture "id" Int :> Delete '[JSON] ()
-      :<|> "api" :> "matrix" :> "addition" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
-      :<|> "api" :> "matrix" :> "subtraction" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
-      :<|> "api" :> "matrix" :> "multiplication" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
-
+      :<|> "api" :> "matrix" :> "arithmetic" :> "addition" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
+      :<|> "api" :> "matrix" :> "arithmetic" :> "subtraction" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
+      :<|> "api" :> "matrix" :> "arithmetic" :> "multiplication" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
+      :<|> "api" :> "matrix" :> "arithmetic" :> "exps" :> Get '[JSON] [ArithRecord]
 data MatrixArith = MatrixArith {
   mexp :: [[Int]],
   mexp2 :: [[Int]]
@@ -86,6 +86,12 @@ data ExpRecord = ExpRecord {
   result :: Value
   } deriving (Generic, Show)
 
+data ArithRecord = ArithRecord {
+  inputm :: Value,
+  input2m :: Value,
+  resultm :: Value
+  } deriving (Generic, Show)
+
 instance FromJSON ExprInfo
 instance ToJSON ExprInfo
 
@@ -97,8 +103,14 @@ instance ToJSON TraceResponse
 instance ToJSON ExpRecord
 instance FromJSON ExpRecord
 
+instance ToJSON ArithRecord
+instance FromJSON ArithRecord
+
 instance FromRow ExpRecord where
   fromRow = ExpRecord <$> field <*> field
+
+instance FromRow ArithRecord where
+  fromRow = ArithRecord <$> field <*> field <*> field 
 
 connectionInfo :: ConnectInfo
 connectionInfo =
@@ -168,6 +180,7 @@ lAlgServer pool = det
   :<|> additionPOST
   :<|> subtractionPOST
   :<|> multiplicationPOST
+  :<|> arithExpsGET
   where
   det :: ExprInfo -> Servant.Handler DeterminantResponse
   det clientInfo = do
@@ -238,6 +251,11 @@ lAlgServer pool = det
       execute conn "INSERT INTO matrix_exps (input, input2, result) VALUES (?, ?, ?)" (toJSON (mexp mat), toJSON (mexp2 mat), toJSON (expr result))
     return result
 
+  arithExpsGET :: Servant.Handler [ArithRecord]
+  arithExpsGET = do
+    exps <- liftIO $ withResource pool $ \conn ->
+      query_ conn "SELECT input, input2, result FROM matrix_exps"
+    return exps
 userAPI :: Proxy API
 userAPI = Proxy
 
