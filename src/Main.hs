@@ -67,6 +67,7 @@ type API = "api" :> "matrix" :> "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON
       :<|> "api" :> "matrix" :> "arithmetic" :> "subtraction" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
       :<|> "api" :> "matrix" :> "arithmetic" :> "multiplication" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
       :<|> "api" :> "matrix" :> "arithmetic" :> "exps" :> Get '[JSON] [ArithRecord]
+      :<|> "api" :> "matrix" :> "arithmetic" :> "exp" :> Capture "id" Int :> Get '[JSON] [ArithRecord]
       
 data MatrixArith = MatrixArith {
   mexp :: [[Int]],
@@ -185,6 +186,7 @@ lAlgServer pool = det
   :<|> subtractionPOST
   :<|> multiplicationPOST
   :<|> arithExpsGET
+  :<|> arithMatExpGETById
   where
   det :: ExprInfo -> Servant.Handler DeterminantResponse
   det clientInfo = do
@@ -260,6 +262,12 @@ lAlgServer pool = det
     exps <- liftIO $ withResource pool $ \conn ->
       query_ conn "SELECT input, input2, result FROM matrix_exps"
     return exps
+
+  arithMatExpGETById :: Int -> Servant.Handler [ArithRecord]
+  arithMatExpGETById id = do
+    me <- liftIO $ withResource pool $ \conn ->
+      query conn "SELECT input, input2, result FROM matrix_exps WHERE id=?" (Only id)
+    return me
     
 userAPI :: Proxy API
 userAPI = Proxy
