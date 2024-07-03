@@ -38,7 +38,6 @@ import System.Directory
 import Text.Blaze
 import Text.Blaze.Html.Renderer.Utf8
 import Servant.Types.SourceT (source)
---import qualified Data.Aeson.Parser
 import qualified Text.Blaze.Html
 
 import LinearAlgebra (
@@ -47,13 +46,16 @@ import LinearAlgebra (
   upperTriangular,
   lowerTriangular
   )
+  
 import MatrixVectorClass (
   add,
   sub,
   mul)
+  
 import Matrix (
   Matrix(..)
   )
+  
 type API = "api" :> "matrix" :> "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] DeterminantResponse
       :<|> "api" :> "matrix" :> "matTrace" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] TraceResponse
       :<|> "api" :> "matrix" :> "matUpTriangular" :> ReqBody '[JSON] ExprInfo :> Post '[JSON] ExprInfo
