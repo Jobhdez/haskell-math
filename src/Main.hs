@@ -65,10 +65,12 @@ type API = "api" :> "matrix" :> "det" :> ReqBody '[JSON] ExprInfo :> Post '[JSON
       :<|> "api" :> "matrix" :> "arithmetic" :> "subtraction" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
       :<|> "api" :> "matrix" :> "arithmetic" :> "multiplication" :> ReqBody '[JSON] MatrixArith :> Post '[JSON] ExprInfo
       :<|> "api" :> "matrix" :> "arithmetic" :> "exps" :> Get '[JSON] [ArithRecord]
+      
 data MatrixArith = MatrixArith {
   mexp :: [[Int]],
   mexp2 :: [[Int]]
   } deriving (Generic, Show)
+  
 data ExprInfo = ExprInfo {
   expr :: [[Int]]
   } deriving (Generic, Show)
