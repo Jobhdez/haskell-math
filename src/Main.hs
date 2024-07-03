@@ -258,6 +258,7 @@ lAlgServer pool = det
     exps <- liftIO $ withResource pool $ \conn ->
       query_ conn "SELECT input, input2, result FROM matrix_exps"
     return exps
+    
 userAPI :: Proxy API
 userAPI = Proxy
 
